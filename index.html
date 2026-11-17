@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Церковь «Маяк Надежды» — Рига</title>
+  <meta name="description" content="Церковь «Маяк Надежды» в Риге: социальное служение, расписание собраний, трансляции, контакты и реквизиты для пожертвований.">
+  <meta name="theme-color" content="#060606">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== Навигация ===== -->
+  <header class="nav" id="top">
+    <div class="nav__inner">
+      <a class="nav__logo" href="#top" data-to-top aria-label="Маяк Надежды — наверх" data-i18n-aria="nav.logo">
+        <img src="assets/logo.webp" alt="Маяк Надежды" data-i18n-alt="nav.logoAlt" width="129" height="129">
+      </a>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span class="sr-only" data-menu-label>Открыть меню</span>
+        <span class="nav__bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav__links" id="nav-links" aria-label="Основная навигация" data-i18n-aria="nav.label">
+        <a href="#about" data-i18n="nav.about">о нас</a>
+        <a href="#meetings" data-i18n="nav.meetings">собрания</a>
+        <a href="#broadcast" data-i18n="nav.broadcast">трансляция</a>
+        <a href="#ministries" data-i18n="nav.ministries">служения</a>
+        <a href="#contacts" data-i18n="nav.contacts">контакты</a>
+        <div class="nav__lang" role="group" aria-label="Язык" data-i18n-aria="lang.group">
+          <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+          <button type="button" data-lang="lv" aria-pressed="false">LV</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== Главный экран ===== -->
+    <section class="hero" aria-label="Добро пожаловать" data-i18n-aria="hero.label">
+      <div class="hero__media">
+        <img src="assets/hero.webp" alt="">
+      </div>
+      <h1 class="hero__title" data-i18n-html="hero.title">Добро<br>Пожаловать</h1>
+    </section>
+
+    <!-- ===== О нас ===== -->
+    <section class="about" id="about">
+      <h2 class="title title--xl" data-i18n="about.title">О нас</h2>
+
+      <div class="about__grid">
+        <figure class="pastors">
+          <img class="pastors__layer pastors__layer--bg" src="assets/about-bg.webp" alt="">
+          <img class="pastors__layer" src="assets/pastors.webp" alt="Пастора Александр и Нелия Вапне" data-i18n-alt="about.pastorsAlt">
+          <figcaption class="pill pill--left" data-i18n="about.pastors">Пастора Александр и Нелия Вапне</figcaption>
+        </figure>
+
+        <div class="about__card">
+          <p class="pill pill--center" data-i18n="about.church">Церковь «Маяк Надежды»</p>
+          <p class="about__text" data-i18n="about.text">— это живая христианская община, которая совмещает активное социальное служение с развитием мессианского направления. Наша история началась более 10 лет назад из практической помощи людям, и сегодня эти ценности остаются для нас главными.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Наша история ===== -->
+    <section class="history" id="history">
+      <div class="history__bg" aria-hidden="true">
+        <div class="history__bg-inner">
+          <img src="assets/history-photo.webp" alt="">
+        </div>
+      </div>
+
+      <h2 class="title title--lg" data-i18n="history.title">Наша история</h2>
+
+      <div class="panel panel--plain">
+        <p data-i18n="history.p1">Служение выросло из деятельности благотворительного фонда Kraukļu fonds («Фонд воронов»), который помогал малоимущим семьям и людям в кризисных ситуациях. За работу фонда в одном из отдаленных районов Риги отвечал Александр Вапне.</p>
+        <p data-i18n="history.p2">В тот период Господь вложил в сердца нескольких служителей одинаковое откровение о создании церкви — это слово они услышали одновременно, не сговариваясь. В 2015 году Александр и Нелия Вапне были рукоположены на пасторское служение, и церковь «Маяк Надежды» была утверждена официально.</p>
+      </div>
+
+      <h2 class="title title--lg history__lead2" data-i18n="history.lead2">Социальное служение - наш приоритет!</h2>
+
+      <div class="panel panel--gradient">
+        <p data-i18n="history.intro">Мы верим, что вера сильна делами. Наша церковь активно поддерживает тех, кто нуждается в помощи и заботе:</p>
+        <ul class="panel__list">
+          <li data-i18n="history.li1">Помощь людям с различными видами зависимостей.</li>
+          <li data-i18n="history.li2">Поддержка малоимущих семей и людей в сложных жизненных обстоятельствах.</li>
+          <li data-i18n="history.li3">Опека и служение для пожилых людей.</li>
+          <li data-i18n="history.li4">Поддержка людей с ограниченными возможностями.</li>
+        </ul>
+        <p data-i18n="history.outro">Также в церкви открыты и активно развиваются направления для детей, подростков и молодёжи.</p>
+      </div>
+    </section>
+
+    <!-- ===== Собрания ===== -->
+    <section class="meetings" id="meetings">
+      <h2 class="title title--xl" data-i18n="meetings.title">Собрания</h2>
+
+      <div class="meetings__grid">
+        <ul class="schedule">
+          <li class="slot">
+            <span class="day" data-i18n="day.mon">Пн</span>
+            <div class="slot__text"><h3 data-i18n="slot.prayer">Молитва</h3><p class="slot__time">19:30</p></div>
+          </li>
+          <li class="slot">
+            <span class="day" data-i18n="day.tue">Вт</span>
+            <div class="slot__text"><h3 data-i18n="slot.home">Домашние группы</h3><p class="slot__time">19:00</p></div>
+          </li>
+          <li class="slot">
+            <span class="day" data-i18n="day.thu">Чт</span>
+            <div class="slot__text"><h3 data-i18n="slot.bible">Библейский семинар</h3><p class="slot__time">19:00</p></div>
+          </li>
+          <li class="slot slot--sunday">
+            <span class="day" data-i18n="day.sun">Вс</span>
+            <div class="slot__text"><h3 data-i18n="slot.sunday">Воскресное богослужение</h3><p class="slot__time">12:00</p></div>
+          </li>
+        </ul>
+
+        <article class="shofar">
+          <div class="slot shofar__head">
+            <span class="day day--plain" data-i18n="day.sat">Сб</span>
+            <div class="slot__text"><h3 data-i18n="slot.shofar">Община Шофар</h3><p class="slot__time">12:00</p></div>
+          </div>
+
+          <div class="shofar__text">
+            <p data-i18n="shofar.p1">Мессианская община «Шофар»</p>
+            <p data-i18n="shofar.p2">Пастор Александр Вапне имеет еврейские корни. В 2020 году, после кончины его отца, мессианского пастора Леонида Вапне, Александр принял преемственность, объединив его общину с церковью «Маяк Надежды».</p>
+            <p data-i18n="shofar.p3">Сегодня мессианское направление является одним из ключевых приоритетов церкви. В рамках общины «Шофар» мы чтим библейские традиции, изучаем Слово и проводим Шабаты по субботам</p>
+          </div>
+
+          <a class="shofar__yt" href="https://www.youtube.com/@Shofar_Riga" target="_blank" rel="noopener">
+            <img src="assets/icon-youtube-lg.svg" alt="YouTube" width="86" height="64.205">
+            <span>@Shofar_Riga</span>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Теплый градиентный фон: от «Трансляции» до подвала -->
+    <div class="warm">
+
+      <!-- ===== Трансляция ===== -->
+      <section class="broadcast" id="broadcast">
+        <h2 class="title title--xl" data-i18n="broadcast.title">Трансляция</h2>
+        <!-- Последняя трансляция с канала YouTube.
+             Чтобы видео заработало, впишите ID канала (начинается с UC…) в data-channel-id
+             (показывает всегда самое новое видео) или ID одного видео в data-video-id.
+             Пока ID пустой, показывается картинка со ссылкой на канал. -->
+        <div class="broadcast__media" id="yt-box" data-channel-id="" data-video-id="uvu4nUhLPSQ">
+          <a class="broadcast__poster" href="https://www.youtube.com/@mayaknadezdi" target="_blank" rel="noopener" aria-label="Смотреть трансляции на YouTube" data-i18n-aria="broadcast.aria">
+            <img src="assets/broadcast.webp" alt="">
+          </a>
+        </div>
+        <a class="broadcast__note" href="https://www.youtube.com/@mayaknadezdi" target="_blank" rel="noopener" data-i18n="broadcast.note">Переходи на YouTube-канал — там транслируются молитва, библейский семинар и воскресное богослужение!</a>
+      </section>
+
+      <!-- ===== Служения ===== -->
+      <section class="ministries" id="ministries">
+        <h2 class="title title--xl" data-i18n="ministries.title">Служения</h2>
+
+        <ul class="ministries__grid">
+          <li class="ministry">
+            <div class="ministry__photo"><img src="assets/ministry-children.webp" alt="Детское служение" data-i18n-alt="m.childrenAlt"></div>
+            <p class="ministry__name" data-i18n="m.children">Детское</p>
+          </li>
+          <li class="ministry">
+            <div class="ministry__photo"><img class="crop-youth" src="assets/ministry-youth.webp" alt="Молодёжное служение" data-i18n-alt="m.youthAlt"></div>
+            <p class="ministry__name" data-i18n="m.youth">Молодежное</p>
+          </li>
+          <li class="ministry">
+            <div class="ministry__photo"><img src="assets/ministry-golden.webp" alt="Служение «Золотой век»" data-i18n-alt="m.goldenAlt"></div>
+            <p class="ministry__name" data-i18n="m.golden">Золотой век</p>
+          </li>
+          <li class="ministry">
+            <div class="ministry__photo"><img class="crop-praise" src="assets/ministry-praise.webp" alt="Прославление" data-i18n-alt="m.praiseAlt"></div>
+            <p class="ministry__name" data-i18n="m.praise">Прославление</p>
+          </li>
+          <li class="ministry">
+            <div class="ministry__photo"><img class="crop-social" src="assets/ministry-social.webp" alt="Социальное служение" data-i18n-alt="m.socialAlt"></div>
+            <p class="ministry__name" data-i18n="m.social">Социальное</p>
+          </li>
+          <li class="ministry">
+            <div class="ministry__photo"><img class="crop-recovery" src="assets/ministry-recovery.webp" alt="Помощь зависимым" data-i18n-alt="m.recoveryAlt"></div>
+            <p class="ministry__name" data-i18n="m.recovery">Зависимым</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ===== Контакты ===== -->
+      <section class="contacts" id="contacts">
+        <h2 class="title title--xl" data-i18n="contacts.title">Контакты</h2>
+
+        <div class="contacts__grid">
+          <a class="contact contact--social c-fb" href="https://www.facebook.com/mayaknadezdy" target="_blank" rel="noopener">
+            <span class="contact__icon">
+              <img class="contact__circle" src="assets/circle.svg" alt="" width="72" height="72">
+              <img class="contact__glyph contact__glyph--fb" src="assets/icon-facebook.svg" alt="" width="75" height="72">
+            </span>
+            <span class="contact__text">@mayaknadezdy</span>
+          </a>
+
+          <a class="contact c-phone" href="tel:+37127658544">
+            <span class="contact__icon">
+              <img class="contact__glyph contact__glyph--phone" src="assets/icon-phone.svg" alt="" width="66.487" height="27.627">
+            </span>
+            <span class="contact__text">+371 27658544</span>
+          </a>
+
+          <a class="contact contact--social c-yt" href="https://www.youtube.com/@mayaknadezdi" target="_blank" rel="noopener">
+            <span class="contact__icon">
+              <img class="contact__circle" src="assets/circle.svg" alt="" width="72" height="72">
+              <img class="contact__glyph" src="assets/icon-youtube.svg" alt="" width="37.694" height="25.412">
+            </span>
+            <span class="contact__text">@mayaknadezdi</span>
+          </a>
+
+          <a class="contact c-mail" href="mailto:ceribubaka@gmail.com">
+            <span class="contact__icon">
+              <img class="contact__glyph" src="assets/icon-email.svg" alt="" width="94" height="40">
+            </span>
+            <span class="contact__text">ceribubaka@gmail.com</span>
+          </a>
+
+          <a class="contact contact--social contact--lg c-ig" href="https://www.instagram.com/cmn_church" target="_blank" rel="noopener">
+            <span class="contact__icon">
+              <img class="contact__circle" src="assets/circle-lg.svg" alt="" width="76" height="76">
+              <img class="contact__glyph" src="assets/icon-instagram.svg" alt="" width="26.824" height="26.824">
+            </span>
+            <span class="contact__text">@cmn_church</span>
+          </a>
+
+          <a class="contact c-addr" href="https://www.google.com/maps/search/?api=1&amp;query=R%C4%ABga%2C+Par%C4%81des+iela+4" target="_blank" rel="noopener">
+            <span class="contact__icon">
+              <img class="contact__glyph" src="assets/icon-pin.svg" alt="" width="43.156" height="56.193">
+            </span>
+            <span class="contact__text">Rīga, Parādes iela 4</span>
+          </a>
+
+          <a class="contacts__map" href="https://www.google.com/maps/search/?api=1&amp;query=R%C4%ABga%2C+Par%C4%81des+iela+4" target="_blank" rel="noopener" aria-label="Открыть адрес на карте" data-i18n-aria="contacts.mapAria">
+            <img src="assets/map.webp" alt="Карта: Rīga, Parādes iela 4" data-i18n-alt="contacts.mapAlt">
+          </a>
+        </div>
+
+        <!-- Форма обратной связи.
+             Чтобы письма приходили на почту, впишите адрес из сервиса форм
+             (например Formspree) в data-endpoint — см. FORM-SETUP.md -->
+        <form class="cform" id="contact-form" novalidate data-endpoint="">
+          <h3 class="cform__title" data-i18n="form.title">Написать нам</h3>
+          <p class="cform__lead" data-i18n="form.lead">Задайте вопрос или расскажите, чем мы можем помочь — мы обязательно ответим.</p>
+
+          <div class="cform__row">
+            <label class="field">
+              <span class="field__label" data-i18n="form.name">Имя</span>
+              <input type="text" name="name" autocomplete="name" required maxlength="100" placeholder="Ваше имя" data-i18n-ph="form.namePh">
+            </label>
+            <label class="field">
+              <span class="field__label" data-i18n="form.email">Эл. почта</span>
+              <input type="email" name="email" autocomplete="email" required maxlength="150" placeholder="you@example.com" data-i18n-ph="form.emailPh">
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field__label" data-i18n="form.message">Сообщение</span>
+            <textarea name="message" rows="5" required maxlength="3000" placeholder="Напишите ваше сообщение" data-i18n-ph="form.messagePh"></textarea>
+          </label>
+
+          <!-- Скрытое поле-ловушка для спам-ботов: люди его не видят -->
+          <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="_subject" value="Сообщение с сайта «Маяк Надежды»">
+
+          <div class="cform__actions">
+            <button class="cform__btn" type="submit" data-i18n="form.submit">Отправить</button>
+            <p class="cform__status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+
+      <!-- ===== Пожертвования ===== -->
+      <section class="donate" id="donate">
+        <img class="donate__glow" src="assets/donate-glow.svg" alt="" aria-hidden="true">
+
+        <h2 class="title title--xl donate__title" data-i18n="donate.title">Пожертвования</h2>
+
+        <div class="donate__grid">
+          <div class="req">
+            <h3 class="req__name" data-i18n="donate.church">Маяк Надежды</h3>
+            <p class="req__data">CERĪBU BĀKA KRISTĪGĀ DRAUDZE<br>LV49HABA0551059126455<br>SWEDBANK AS</p>
+          </div>
+          <div class="req req--shofar">
+            <h3 class="req__name" data-i18n="donate.shofar">Шофар</h3>
+            <p class="req__data">SHOFAR<br>LV37UNLA0050022155082<br>SEB banka</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Подвал ===== -->
+      <footer class="footer">
+        <div class="footer__inner">
+          <p data-i18n="footer.p1">Наша церковь входит в латвийский центр пятидесятнических церквей</p>
+          <p>LVDC (Latvijas vasarsvētku draudžu centrs) <br>Reġ. Nr. 90000159015</p>
+          <p>Iecavas krastmala 1a, Ozolnieki <br>Jelgavas nov., LV-3018</p>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
