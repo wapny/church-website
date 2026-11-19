@@ -422,11 +422,7 @@ button { font: inherit; }
 .warm {
   position: relative;
   padding-top: 82px;
-  /* Обрезаем по обеим осям: свечение .donate__glow (694 px) на широких экранах
-     выходит ниже подвала и удлиняло страницу белой полосой фона body.
-     overflow: hidden — запасной вариант для старых браузеров без clip. */
-  overflow: hidden;
-  overflow: clip;
+  overflow-x: clip;
   background: linear-gradient(180deg,
     #fff 12.03%,
     #ff9d68 56.7%,
@@ -758,7 +754,10 @@ button { font: inherit; }
   position: relative;
   z-index: 1;
   border-top: 1px solid var(--ink-soft);
-  padding: 34px 0 10px;
+  /* Нижний отступ 48 px: свечение .donate__glow (высота 694 px) должно целиком
+     помещаться внутри градиента .warm — иначе на широких экранах оно выходило
+     ниже градиента и под ним был виден белый фон body. На ≤640 px — прежние 10 px. */
+  padding: 34px 0 48px;
 }
 .footer__inner {
   max-width: 1440px;
@@ -903,6 +902,7 @@ button { font: inherit; }
 
 /* ---- Phone ---- */
 @media (max-width: 640px) {
+  .footer { padding-bottom: 10px; }
   body { font-size: 17px; }
 
   .title--xl { font-size: 40px; line-height: 48px; }
