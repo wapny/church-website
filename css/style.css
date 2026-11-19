@@ -422,7 +422,11 @@ button { font: inherit; }
 .warm {
   position: relative;
   padding-top: 82px;
-  overflow-x: clip;
+  /* Обрезаем по обеим осям: свечение .donate__glow (694 px) на широких экранах
+     выходит ниже подвала и удлиняло страницу белой полосой фона body.
+     overflow: hidden — запасной вариант для старых браузеров без clip. */
+  overflow: hidden;
+  overflow: clip;
   background: linear-gradient(180deg,
     #fff 12.03%,
     #ff9d68 56.7%,
