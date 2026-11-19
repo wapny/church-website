@@ -205,23 +205,46 @@
       var okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       if (!name || !message || !okEmail) { say('form.invalid', 'error'); return; }
 
-      var endpoint = form.getAttribute('data-endpoint');
-      if (!endpoint) { say('form.demo', 'info'); return; }
+      var endpoint = (form.getAttribute('data-endpoint') || '').trim();
+      if (!/^https:\/\//.test(endpoint) || !window.fetch) { say('form.demo', 'info'); return; }
+      if (btn.disabled) return; // уже отправляем
+
+      /* язык, на котором написано сообщение, — чтобы было видно в письме */
+      var langField = form.elements._language;
+      if (langField && window.I18N) langField.value = window.I18N.get();
 
       btn.disabled = true;
+      form.setAttribute('aria-busy', 'true');
       say('form.sending', 'info');
+
+      /* если сервер не ответил за 20 секунд — показываем ошибку */
+      var ctrl = window.AbortController ? new AbortController() : null;
+      var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 20000);
+
       fetch(endpoint, {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
-        body: new FormData(form)
+        body: new FormData(form),
+        signal: ctrl ? ctrl.signal : undefined
       }).then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
+        /* Formspree отвечает JSON: { ok: true } или { errors: [...] } */
+        return r.json().catch(function () { return {}; }).then(function (data) {
+          if (!r.ok || (data && data.errors)) {
+            var err = new Error('HTTP ' + r.status);
+            err.details = data && data.errors;
+            throw err;
+          }
+        });
+      }).then(function () {
         form.reset();
         say('form.ok', 'ok');
-      }).catch(function () {
-        say('form.error', 'error');
+      }).catch(function (err) {
+        if (window.console && err) console.warn('Форма не отправлена:', err.message, err.details || '');
+        say(navigator.onLine === false ? 'form.offline' : 'form.error', 'error');
       }).then(function () {
+        clearTimeout(timer);
         btn.disabled = false;
+        form.removeAttribute('aria-busy');
       });
     });
   }

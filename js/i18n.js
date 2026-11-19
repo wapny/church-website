@@ -23,10 +23,11 @@
     'menu.open': 'Открыть меню',
     'menu.close': 'Закрыть меню',
     'form.sending': 'Отправляем…',
-    'form.ok': 'Спасибо! Сообщение отправлено.',
+    'form.ok': 'Спасибо! Ваше сообщение отправлено. Мы ответим вам на указанную почту.',
     'form.invalid': 'Пожалуйста, заполните все поля и проверьте адрес электронной почты.',
     'form.error': 'Не удалось отправить сообщение. Попробуйте ещё раз или напишите нам на ceribubaka@gmail.com.',
-    'form.demo': 'Форма ещё не подключена к почте. Пока напишите нам на ceribubaka@gmail.com.'
+    'form.demo': 'Форма ещё не подключена к почте. Пока напишите нам на ceribubaka@gmail.com.',
+    'form.offline': 'Нет подключения к интернету. Проверьте соединение и попробуйте ещё раз.'
   };
 
   var LV = {
@@ -114,10 +115,11 @@
     'form.messagePh': 'Uzraksti savu ziņojumu',
     'form.submit': 'Nosūtīt',
     'form.sending': 'Sūtām…',
-    'form.ok': 'Paldies! Ziņojums nosūtīts.',
+    'form.ok': 'Paldies! Tavs ziņojums nosūtīts. Mēs atbildēsim uz norādīto e-pastu.',
     'form.invalid': 'Lūdzu, aizpildi visus laukus un pārbaudi e-pasta adresi.',
     'form.error': 'Neizdevās nosūtīt ziņojumu. Mēģini vēlreiz vai raksti mums uz ceribubaka@gmail.com.',
     'form.demo': 'Veidlapa vēl nav pieslēgta e-pastam. Pagaidām raksti mums uz ceribubaka@gmail.com.',
+    'form.offline': 'Nav interneta savienojuma. Pārbaudi savienojumu un mēģini vēlreiz.',
 
     'donate.title': 'Ziedojumi',
     'donate.church': 'Cerību Bāka',
@@ -211,10 +213,11 @@
     'form.messagePh': 'Write your message',
     'form.submit': 'Send',
     'form.sending': 'Sending…',
-    'form.ok': 'Thank you! Your message has been sent.',
+    'form.ok': 'Thank you! Your message has been sent. We will reply to the email you provided.',
     'form.invalid': 'Please fill in all fields and check your email address.',
     'form.error': 'We could not send your message. Please try again or write to us at ceribubaka@gmail.com.',
     'form.demo': 'The form is not connected to email yet. For now, please write to us at ceribubaka@gmail.com.',
+    'form.offline': 'No internet connection. Please check your connection and try again.',
 
     'donate.title': 'Donations',
     'donate.church': 'Lighthouse of Hope',

@@ -1,35 +1,54 @@
-# Contact form setup
+# Подключение формы обратной связи (Formspree)
 
-The form is built and works on the page. To make messages arrive in your inbox you only need to connect it to a free form service. A website cannot send email by itself, so this one step is needed.
+Форма на сайте уже готова: проверяет поля, показывает сообщения об успехе и ошибках на RU / LV / EN. Сайт на GitHub Pages не умеет сам отправлять письма, поэтому сообщения передаются через бесплатный сервис **Formspree**, а он пересылает их на почту.
 
-## Option: Formspree (free plan, about 50 messages per month)
+Бесплатный тариф: до 50 сообщений в месяц.
 
-1. Go to https://formspree.io and create an account (use the email where you want to receive messages, for example ceribubaka@gmail.com).
-2. Click **New form**, give it a name (for example "Mayak Nadezhdy website") and save it.
-3. Formspree shows a form address that looks like `https://formspree.io/f/abcdwxyz`. Copy it.
-4. Open `index.html` and find this line:
+## Шаг 1. Регистрация
+
+1. Откройте https://formspree.io и нажмите **Get Started** / **Sign up**.
+2. Зарегистрируйтесь **на адрес, куда должны приходить сообщения: tariffubaka@gmail.com**.
+3. Откройте письмо от Formspree и нажмите ссылку подтверждения почты. Без этого письма приходить не будут.
+
+## Шаг 2. Создание формы
+
+1. В панели Formspree нажмите **+ New Form**.
+2. Название: например `Маяк Надежды — сайт`.
+3. В поле получателя (**Send emails to**) должен стоять **tariffubaka@gmail.com**.
+4. Нажмите **Create Form**.
+5. Formspree покажет адрес формы (**endpoint**) вида `https://formspree.io/f/abcdwxyz`. Скопируйте его.
+
+## Шаг 3. Вставка адреса в сайт
+
+1. Откройте `index.html` и найдите строку:
 
    ```html
    <form class="cform" id="contact-form" novalidate data-endpoint="">
    ```
 
-5. Paste your address between the quotes:
+2. Вставьте адрес между кавычками:
 
    ```html
    <form class="cform" id="contact-form" novalidate data-endpoint="https://formspree.io/f/abcdwxyz">
    ```
 
-6. Upload the site again. Send yourself a test message. The first time, Formspree sends a confirmation email: confirm it.
+3. Сохраните файл.
 
-## Notes
+## Шаг 4. Проверка
 
-- While `data-endpoint` is empty, the form shows the message "The form is not connected to email yet" and gives the church email address. Nothing is sent.
-- The form does not work inside the preview link, because the preview blocks sending data to other sites. It works on the real hosted website.
-- Spam: the form has a hidden trap field (`_gotcha`) that blocks simple bots. Formspree also has its own spam filter.
-- Other services work the same way (Web3Forms, Getform, Netlify Forms with small changes). Any service that accepts a normal form POST and returns JSON will work with the `data-endpoint` address.
+1. Запустите сайт локально (`python3 -m http.server 8000`, затем http://localhost:8000) или откройте опубликованный сайт.
+2. Заполните форму и нажмите «Отправить».
+3. Должно появиться зелёное сообщение «Спасибо! Ваше сообщение отправлено…».
+4. Проверьте почту (и папку «Спам»). В письме будут имя, e-mail, сообщение и язык сайта (`_language`). Кнопка «Ответить» в почте ответит прямо посетителю.
 
-# Languages
+## Если что-то не работает
 
-- The site has Russian (default), Latvian and English. The visitor's choice is remembered in their browser.
-- All Latvian and English texts are in `js/i18n.js`. Find the key (for example `history.p1`) and edit the text between the quotes.
-- Russian texts are written directly in `index.html`.
+- **Красное сообщение об ошибке.** Откройте консоль браузера (F12 → Console): там будет причина от Formspree, например `FORM_NOT_FOUND` — значит, адрес формы скопирован неверно.
+- **Ошибка про reCAPTCHA / CAPTCHA.** В Formspree: форма → **Settings** → выключите **reCAPTCHA**. Сайт отправляет форму без перезагрузки страницы, а при включённой reCAPTCHA Formspree такие отправки отклоняет. От спама защищает скрытое поле-ловушка `_gotcha` и собственный фильтр Formspree.
+- **Письма не приходят, хотя сообщение «отправлено».** Проверьте «Спам», а также что почта подтверждена в Formspree (шаг 1.3). Все полученные сообщения видны в панели Formspree во вкладке **Submissions**.
+- Пока `data-endpoint` пустой, форма ничего не отправляет и показывает «Форма ещё не подключена к почте…» с адресом церкви.
+
+## Тексты
+
+- Тексты формы на латышском и английском — в `js/i18n.js` (ключи `form.*`), русские — в `index.html` и в начале `js/i18n.js` (`RU_EXTRA`).
+- Тема письма задаётся в `index.html`: `<input type="hidden" name="_subject" ...>`.
