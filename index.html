@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -242,9 +243,14 @@
             <span class="contact__text">Rīga, Parādes iela 4</span>
           </a>
 
-          <a class="contacts__map" href="https://www.google.com/maps/search/?api=1&amp;query=R%C4%ABga%2C+Par%C4%81des+iela+4" target="_blank" rel="noopener" aria-label="Открыть адрес на карте" data-i18n-aria="contacts.mapAria">
-            <img src="assets/map.webp" alt="Карта: Rīga, Parādes iela 4" data-i18n-alt="contacts.mapAlt">
-          </a>
+          <!-- Интерактивная карта (Leaflet + OpenStreetMap), её запускает js/map.js.
+               Координаты: здание Rīga, Parādes iela 4 по данным OpenStreetMap.
+               Если карта не загрузилась, остаётся картинка со ссылкой. -->
+          <div class="contacts__map" id="church-map" data-lat="57.0419045" data-lng="24.0314766" data-zoom="16" role="region" aria-label="Карта: Rīga, Parādes iela 4" data-i18n-aria="contacts.mapAlt">
+            <a class="contacts__map-fallback" href="https://www.google.com/maps/search/?api=1&amp;query=R%C4%ABga%2C+Par%C4%81des+iela+4" target="_blank" rel="noopener" aria-label="Открыть адрес на карте" data-i18n-aria="contacts.mapAria">
+              <img src="assets/map.webp" alt="Карта: Rīga, Parādes iela 4" data-i18n-alt="contacts.mapAlt">
+            </a>
+          </div>
         </div>
 
         <!-- Форма обратной связи.
@@ -313,5 +319,7 @@
 
   <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/map.js"></script>
 </body>
 </html>

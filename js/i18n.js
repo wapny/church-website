@@ -19,6 +19,7 @@
   /* Тексты, которых нет в HTML (меню, сообщения формы) — русская версия. */
   var RU_EXTRA = {
     'broadcast.player': 'Последняя трансляция церкви «Маяк Надежды»',
+    'map.church': 'Церковь «Маяк Надежды»',
     'menu.open': 'Открыть меню',
     'menu.close': 'Закрыть меню',
     'form.sending': 'Отправляем…',
@@ -101,6 +102,7 @@
     'contacts.title': 'Kontakti',
     'contacts.mapAria': 'Atvērt adresi kartē',
     'contacts.mapAlt': 'Karte: Rīga, Parādes iela 4',
+    'map.church': 'Draudze «Cerību Bāka»',
 
     'form.title': 'Raksti mums',
     'form.lead': 'Uzdod jautājumu vai pastāsti, kā mēs varam palīdzēt — mēs atbildēsim.',
@@ -197,6 +199,7 @@
     'contacts.title': 'Contacts',
     'contacts.mapAria': 'Open the address on the map',
     'contacts.mapAlt': 'Map: Rīga, Parādes iela 4',
+    'map.church': 'Lighthouse of Hope Church',
 
     'form.title': 'Write to us',
     'form.lead': 'Ask a question or tell us how we can help — we will get back to you.',
