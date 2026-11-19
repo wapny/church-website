@@ -149,11 +149,11 @@
       <!-- ===== Трансляция ===== -->
       <section class="broadcast" id="broadcast">
         <h2 class="title title--xl" data-i18n="broadcast.title">Трансляция</h2>
-        <!-- Последняя трансляция с канала YouTube.
-             Чтобы видео заработало, впишите ID канала (начинается с UC…) в data-channel-id
-             (показывает всегда самое новое видео) или ID одного видео в data-video-id.
-             Пока ID пустой, показывается картинка со ссылкой на канал. -->
-        <div class="broadcast__media" id="yt-box" data-channel-id="" data-video-id="uvu4nUhLPSQ">
+        <!-- Трансляция с канала YouTube: прямой эфир или последнее воскресное богослужение.
+             Какое видео показывать, записывает робот GitHub Actions в data/broadcast.json
+             (см. YOUTUBE-SETUP.md). data-video-id — запасное видео, если файл недоступен. -->
+        <p class="broadcast__status" id="yt-status" role="status" hidden></p>
+        <div class="broadcast__media" id="yt-box" data-src="data/broadcast.json" data-channel-id="UCyS2wgp9y7N8Ow-o_OWytlg" data-video-id="uvu4nUhLPSQ">
           <a class="broadcast__poster" href="https://www.youtube.com/@mayaknadezdi" target="_blank" rel="noopener" aria-label="Смотреть трансляции на YouTube" data-i18n-aria="broadcast.aria">
             <img src="assets/broadcast.webp" alt="">
           </a>

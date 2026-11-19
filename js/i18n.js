@@ -19,6 +19,9 @@
   /* Тексты, которых нет в HTML (меню, сообщения формы) — русская версия. */
   var RU_EXTRA = {
     'broadcast.player': 'Последняя трансляция церкви «Маяк Надежды»',
+    'broadcast.playerLive': 'Прямой эфир церкви «Маяк Надежды»',
+    'broadcast.live': 'Прямой эфир',
+    'broadcast.recorded': 'Последняя трансляция',
     'map.church': 'Церковь «Маяк Надежды»',
     'menu.open': 'Открыть меню',
     'menu.close': 'Закрыть меню',
@@ -85,6 +88,9 @@
     'broadcast.aria': 'Skatīties tiešraides vietnē YouTube',
     'broadcast.note': 'Pievienojies mūsu YouTube kanālam — tur tiek translētas lūgšanas, Bībeles semināri un svētdienas dievkalpojumi!',
     'broadcast.player': 'Pēdējā «Cerību Bāka» draudzes tiešraide',
+    'broadcast.playerLive': '«Cerību Bāka» draudzes tiešraide',
+    'broadcast.live': 'Tiešraide',
+    'broadcast.recorded': 'Pēdējā tiešraide',
 
     'ministries.title': 'Kalpošanas',
     'm.children': 'Bērnu',
@@ -183,6 +189,9 @@
     'broadcast.aria': 'Watch broadcasts on YouTube',
     'broadcast.note': 'Visit our YouTube channel — prayer meetings, Bible seminars and Sunday services are streamed there!',
     'broadcast.player': 'Latest broadcast from Lighthouse of Hope Church',
+    'broadcast.playerLive': 'Live broadcast from Lighthouse of Hope Church',
+    'broadcast.live': 'Live now',
+    'broadcast.recorded': 'Latest broadcast',
 
     'ministries.title': 'Ministries',
     'm.children': 'Children',

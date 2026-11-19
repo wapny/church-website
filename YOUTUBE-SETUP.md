@@ -1,22 +1,35 @@
-# Latest YouTube broadcast
+# Трансляции YouTube на сайте
 
-The Broadcast section can show the newest video or live stream from the channel @mayaknadezdi directly on the site. It updates itself: after each Sunday service you do not need to change anything.
+Раздел «Трансляция» сам показывает:
 
-## One-time setup
+- **прямой эфир** — когда на канале @mayaknadezdi идёт трансляция (над видео подпись «Прямой эфир» с красной точкой);
+- **последнее воскресное богослужение** — когда эфира нет (подпись «Последняя трансляция · дата»).
 
-1. Find the channel ID (it starts with `UC` and has 24 characters). On YouTube: open the channel, tap "About" (or the description), then "Share channel" -> "Copy channel ID". In YouTube Studio it is under Settings -> Channel -> Advanced settings.
-2. Open `index.html` and find:
+Видео не запускается само: посетитель нажимает Play. Тексты подписей есть на RU / LV / EN.
 
-   ```html
-   <div class="broadcast__media" id="yt-box" data-channel-id="">
-   ```
+## Как это устроено
 
-3. Put the ID between the quotes, for example `data-channel-id="UCxxxxxxxxxxxxxxxxxxxxxx"`. This always shows the newest video.
-4. To show one specific video instead (for example a particular sermon), put its 11-character ID in `data-video-id=""`: it is the part after `v=` in the video link. A video ID takes priority over the channel ID.
+1. Робот **GitHub Actions** (`.github/workflows/youtube.yml`) по расписанию запускает `scripts/update_broadcast.py`:
+   - по воскресеньям каждые 5 минут примерно с 8–9 до 16–17 часов по Риге;
+   - в остальное время каждые 30 минут.
+2. Скрипт через **YouTube Data API** смотрит последние 25 видео канала `UCyS2wgp9y7N8Ow-o_OWytlg` и выбирает:
+   - видео со статусом LIVE (время начала не важно — главный критерий статус на YouTube);
+   - иначе последнюю **завершённую** трансляцию, начавшуюся **в воскресенье** по времени Риги. Обычные загрузки, клипы, эфиры в другие дни, скрытые видео и видео с запрещённым встраиванием не берутся.
+3. Результат записывается в `data/broadcast.json`. Коммит делается только когда что-то изменилось (начало эфира, конец эфира, новая запись) — обычно 2–3 коммита в неделю.
+4. Сайт читает `data/broadcast.json` и перечитывает его раз в минуту, поэтому у открытой страницы плеер переключается сам.
 
-## Notes
+## Ключ API
 
-- The player works on the real hosted website (https). It does not work when you open `index.html` from your own computer (file://), and not in the preview link: YouTube and the preview block it. There the site shows a picture that links to the channel.
-- While `data-channel-id` is empty, the section shows the picture with a link to the channel.
-- During a live stream the player shows the live video once YouTube lists it in the channel's uploads. If a stream does not show right away, it will appear as soon as YouTube publishes it.
-- The channel's videos must allow embedding (YouTube Studio -> video -> "Allow embedding"), which is the default.
+- Ключ хранится только в GitHub: **Settings → Secrets and variables → Actions → `YOUTUBE_API_KEY`**. В коде и на сайте его нет.
+- В Google Cloud (проект MAYAK WEB) ключ ограничен только **YouTube Data API v3**.
+- Расход: 2 единицы квоты за проверку, около 400–700 в день из бесплатных 10 000. Посетители квоту не расходуют.
+- Если ключ поменяется — замените значение секрета `YOUTUBE_API_KEY`, больше ничего делать не нужно.
+
+## Полезно знать
+
+- **Задержка.** GitHub запускает расписание с опозданием до 5–15 минут, плюс около минуты обновляется сайт. Поэтому прямой эфир появляется на сайте обычно через 5–15 минут после начала.
+- **Ручной запуск:** GitHub → вкладка **Actions** → **YouTube broadcast** → **Run workflow**.
+- **Если что-то не так:** во вкладке **Actions** откройте последний запуск — там видно, что ответил YouTube (например, ошибку ключа).
+- **Если файл недоступен,** сайт показывает видео из `data-video-id` в `index.html`, а если нет и его — картинку со ссылкой на канал.
+- **Важно для GitHub:** в публичных репозиториях GitHub отключает расписание, если в репозитории 60 дней не было коммитов. Еженедельные коммиты робота это предотвращают, но если трансляций долго не будет — в Actions появится кнопка **Enable workflow**.
+- Канал должен разрешать встраивание видео (YouTube Studio → видео → «Разрешить встраивание», включено по умолчанию).

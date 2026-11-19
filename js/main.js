@@ -145,34 +145,99 @@
     away.observe(history);
   }
 
-  /* ---------- Последняя трансляция с YouTube ----------
-     Плейлист «Загрузки» канала (его ID = UU + ID канала без «UC») всегда
-     начинается с самого нового видео или прямого эфира, поэтому обновлять
-     сайт после каждой трансляции не нужно. */
+  /* ---------- Трансляция с YouTube: LIVE или последнее воскресное богослужение ----------
+     Какое видео показывать, решает робот GitHub Actions (.github/workflows/youtube.yml):
+     он проверяет канал через YouTube Data API и записывает результат в data/broadcast.json.
+     Сайт только читает этот файл — без ключа и без расхода квоты — и перечитывает его
+     раз в минуту, поэтому плеер сам переключится, когда начнётся или закончится эфир.
+     Видео не запускается само: посетитель нажимает Play.
+     Если файл недоступен, показывается видео из data-video-id, а если нет и его —
+     картинка со ссылкой на канал. */
   var box = document.getElementById('yt-box');
-  var cid = box ? (box.getAttribute('data-channel-id') || '').trim() : '';
-  var vid = box ? (box.getAttribute('data-video-id') || '').trim() : '';
-  var hasVid = /^[\w-]{11}$/.test(vid);
-  if (box && (hasVid || /^UC[\w-]{22}$/.test(cid))) {
-    var frame = document.createElement('iframe');
-    /* data-video-id (одно конкретное видео) важнее data-channel-id (всегда новейшее видео канала) */
-    frame.src = hasVid
-      ? 'https://www.youtube-nocookie.com/embed/' + vid + '?rel=0'
-      : 'https://www.youtube-nocookie.com/embed/videoseries?list=UU' + cid.slice(2) + '&rel=0';
-    frame.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen';
-    frame.allowFullscreen = true;
-    frame.loading = 'lazy';
-    frame.referrerPolicy = 'strict-origin-when-cross-origin';
-    var setTitle = function () { frame.title = window.I18N.t('broadcast.player'); };
-    setTitle();
-    document.addEventListener('langchange', setTitle);
-    box.appendChild(frame);
-    box.classList.add('has-video');
+  if (box) {
+    var statusEl = document.getElementById('yt-status');
+    var srcUrl = box.getAttribute('data-src') || '';
+    var fallbackVid = (box.getAttribute('data-video-id') || '').trim();
+    var frame = null, shownVid = '', state = null, blocked = false;
+    var isId = function (id) { return /^[\w-]{11}$/.test(id || ''); };
+
+    var setFrameTitle = function () {
+      if (frame) frame.title = window.I18N.t(state && state.live ? 'broadcast.playerLive' : 'broadcast.player');
+    };
+
+    var showVideo = function (id) {
+      if (blocked || !isId(id) || id === shownVid) return; // то же видео — не перезагружаем плеер
+      if (frame) frame.remove();
+      frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0';
+      frame.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+      frame.allowFullscreen = true;
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      setFrameTitle();
+      box.appendChild(frame);
+      box.classList.add('has-video');
+      shownVid = id;
+    };
+
+    /* подпись над видео: «Прямой эфир» или «Последняя трансляция · дата» */
+    var renderStatus = function () {
+      if (!statusEl) return;
+      var live = state && state.live, rec = state && state.latest;
+      if (live && shownVid === live.videoId) {
+        statusEl.textContent = window.I18N.t('broadcast.live');
+        statusEl.className = 'broadcast__status is-live';
+        statusEl.hidden = false;
+      } else if (rec && shownVid === rec.videoId) {
+        var text = window.I18N.t('broadcast.recorded');
+        var d = rec.startedAt ? new Date(rec.startedAt) : null;
+        if (d && !isNaN(d)) {
+          var locale = { ru: 'ru-RU', lv: 'lv-LV', en: 'en-GB' }[window.I18N.get()] || 'ru-RU';
+          try {
+            text += ' · ' + d.toLocaleDateString(locale, { day: 'numeric', month: 'long', timeZone: 'Europe/Riga' });
+          } catch (e) { /* старый браузер — без даты */ }
+        }
+        statusEl.textContent = text;
+        statusEl.className = 'broadcast__status';
+        statusEl.hidden = false;
+      } else {
+        statusEl.hidden = true;
+      }
+    };
+
+    var apply = function () {
+      var live = state && state.live, rec = state && state.latest;
+      var id = (live && isId(live.videoId)) ? live.videoId
+        : (rec && isId(rec.videoId)) ? rec.videoId : fallbackVid;
+      showVideo(id);
+      setFrameTitle();
+      renderStatus();
+    };
+
+    var load = function () {
+      if (!srcUrl || !window.fetch) return;
+      fetch(srcUrl + (srcUrl.indexOf('?') < 0 ? '?' : '&') + 't=' + Date.now(), { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) { state = data; apply(); })
+        .catch(function () { /* сеть или файл недоступны — остаётся то, что уже показано */ });
+    };
+
+    apply();   // сразу показываем запасное видео, пока читается файл
+    load();
+
+    /* перечитываем раз в минуту, пока вкладка открыта и видна */
+    setInterval(function () { if (!document.hidden) load(); }, 60000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
+    document.addEventListener('langchange', function () { setFrameTitle(); renderStatus(); });
+
     /* если встраивание заблокировано (например, в окне предпросмотра), остаётся картинка со ссылкой */
     document.addEventListener('securitypolicyviolation', function (e) {
-      if (/youtube/.test(e.blockedURI || '')) {
+      if (/youtube/.test(e.blockedURI || '') && frame) {
+        blocked = true;
         frame.remove();
+        frame = null; shownVid = '';
         box.classList.remove('has-video');
+        renderStatus();
       }
     });
   }
