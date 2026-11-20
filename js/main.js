@@ -111,7 +111,7 @@
   alignHistoryBg();
 
   /* ---------- «Наша история»: сначала чёткое фото, потом размытие и текст ----------
-     При каждом появлении раздела около секунды видно чёткое фото церкви.
+     При каждом появлении раздела полсекунды видно чёткое фото церкви.
      Затем оно размывается, и проявляются заголовки и тексты. */
   var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var photo = history && history.querySelector('.history__bg-inner img');
@@ -125,13 +125,13 @@
     history.classList.add('is-intro');
 
     /* Каждый раз, когда раздел снова появляется на экране (листаем вниз или вверх),
-       сначала видно чёткое фото, через ~1,3 с оно размывается и проявляется текст. */
+       сначала видно чёткое фото, через 0,5 с оно размывается и проявляется текст. */
     var introTimer = 0;
     var enter = new IntersectionObserver(function (entries) {
       var inView = entries.some(function (e) { return e.isIntersecting; });
       clearTimeout(introTimer);
       if (inView && history.classList.contains('is-intro')) {
-        introTimer = setTimeout(function () { history.classList.remove('is-intro'); }, 1300);
+        introTimer = setTimeout(function () { history.classList.remove('is-intro'); }, 500);
       }
     }, { rootMargin: '0px 0px -40% 0px' });
     enter.observe(history);
@@ -155,7 +155,7 @@
      картинка со ссылкой на канал. */
   var box = document.getElementById('yt-box');
   if (box) {
-    var statusEl = document.getElementById('yt-status');
+    var ytStatus = document.getElementById('yt-status');
     var srcUrl = box.getAttribute('data-src') || '';
     var fallbackVid = (box.getAttribute('data-video-id') || '').trim();
     var frame = null, shownVid = '', state = null, blocked = false;
@@ -182,12 +182,12 @@
 
     /* подпись над видео: «Прямой эфир» или «Последняя трансляция · дата» */
     var renderStatus = function () {
-      if (!statusEl) return;
+      if (!ytStatus) return;
       var live = state && state.live, rec = state && state.latest;
       if (live && shownVid === live.videoId) {
-        statusEl.textContent = window.I18N.t('broadcast.live');
-        statusEl.className = 'broadcast__status is-live';
-        statusEl.hidden = false;
+        ytStatus.textContent = window.I18N.t('broadcast.live');
+        ytStatus.className = 'broadcast__status is-live';
+        ytStatus.hidden = false;
       } else if (rec && shownVid === rec.videoId) {
         var text = window.I18N.t('broadcast.recorded');
         var d = rec.startedAt ? new Date(rec.startedAt) : null;
@@ -197,11 +197,11 @@
             text += ' · ' + d.toLocaleDateString(locale, { day: 'numeric', month: 'long', timeZone: 'Europe/Riga' });
           } catch (e) { /* старый браузер — без даты */ }
         }
-        statusEl.textContent = text;
-        statusEl.className = 'broadcast__status';
-        statusEl.hidden = false;
+        ytStatus.textContent = text;
+        ytStatus.className = 'broadcast__status';
+        ytStatus.hidden = false;
       } else {
-        statusEl.hidden = true;
+        ytStatus.hidden = true;
       }
     };
 
@@ -240,6 +240,24 @@
         renderStatus();
       }
     });
+  }
+
+  /* ---------- Тема оформления: светлая (исходная) / тёмная ----------
+     Выбор сохраняется в браузере посетителя (localStorage) и применяется
+     ещё до отрисовки страницы — см. скрипт в <head> index.html. */
+  var themeBtn = document.querySelector('[data-theme-toggle]');
+  if (themeBtn) {
+    var root = document.documentElement;
+    var syncTheme = function () {
+      themeBtn.setAttribute('aria-pressed', root.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
+    };
+    themeBtn.addEventListener('click', function () {
+      var dark = root.getAttribute('data-theme') !== 'dark';
+      if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+      try { localStorage.setItem('mayak-theme', dark ? 'dark' : 'light'); } catch (e) { /* без сохранения тоже работает */ }
+      syncTheme();
+    });
+    syncTheme();
   }
 
   /* ---------- Форма обратной связи ----------

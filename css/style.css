@@ -130,6 +130,27 @@ button { font: inherit; }
 .nav__lang button:hover { opacity: 1; }
 .nav__lang button.is-active { opacity: 1; border-color: rgba(255, 255, 255, .85); }
 
+/* переключатель темы: луна (включить тёмную) / солнце (вернуть светлую) */
+.nav__theme {
+  display: inline-grid;
+  place-items: center;
+  width: 32px; height: 32px;
+  margin-left: -27px; /* ближе к RU / LV / EN, чем общий шаг меню */
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  opacity: .8;
+  transition: opacity .2s ease, border-color .2s ease, background-color .2s ease;
+}
+.nav__theme:hover { opacity: 1; border-color: rgba(255, 255, 255, .85); }
+.nav__theme svg { display: block; }
+.nav__theme-sun { display: none !important; }
+[data-theme="dark"] .nav__theme-sun { display: block !important; color: #ffd4ab; }
+[data-theme="dark"] .nav__theme-moon { display: none !important; }
+
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
@@ -878,6 +899,7 @@ button { font: inherit; }
   .nav__links a { display: block; width: 100%; padding: 10px 14px; border-radius: 10px; }
   .nav__links a:hover { background: rgba(255, 255, 255, .12); opacity: 1; }
   .nav__lang { padding: 6px 10px 8px; }
+  .nav__theme { margin: 0 0 4px 14px; }
 
   .hero { height: clamp(560px, 100vw, 760px); }
   .hero__media img { left: 0; top: 0; width: 100%; height: 100%; }
@@ -978,3 +1000,128 @@ button { font: inherit; }
   .footer__inner p:nth-child(1) { width: auto; max-width: 280px; }
   .footer br { display: none; }
 }
+
+/* =====================================================================
+   Тёмная тема (экспериментальная). Включается атрибутом
+   data-theme="dark" у <html> — кнопка в меню, js/main.js.
+   Светлая тема выше остаётся исходной и не меняется.
+   Палитра: тёплый графит + те же персиковые и голубые акценты.
+   ===================================================================== */
+[data-theme="dark"] {
+  --ink: #f4ece3;
+  --ink-soft: #e6ddd3;
+  --grey: #2b2724;
+  --d-bg: #141210;
+  --d-card-a: #2a221c;
+  --d-card-b: #3d2b1f;
+  --d-line: rgba(255, 212, 171, .55);
+  color-scheme: dark;
+}
+[data-theme="dark"] body { background: var(--d-bg); }
+[data-theme="dark"] .hero { background: var(--d-bg); }
+/* нижний край фото в макете уходит в белый — в тёмной теме уводим его в графит */
+[data-theme="dark"] .hero__media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(20, 18, 16, 0) 48%, rgba(20, 18, 16, .78) 74%, var(--d-bg) 92%);
+  pointer-events: none;
+}
+[data-theme="dark"] .title--lg { color: var(--ink); }
+
+/* О нас */
+[data-theme="dark"] .pastors {
+  background: linear-gradient(142.79deg, #3a2a1f 14.644%, #6b4126 85.356%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .7);
+}
+[data-theme="dark"] .pastors__layer--bg { opacity: .16; }
+[data-theme="dark"] .pill { border-color: var(--d-line); }
+[data-theme="dark"] .pill--left { background: rgba(20, 18, 16, .55); }
+[data-theme="dark"] .about__card {
+  background: linear-gradient(136.49deg, var(--d-card-a) 14.644%, var(--d-card-b) 85.356%);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, .65);
+}
+
+/* Наша история */
+[data-theme="dark"] .history__bg-inner {
+  background: linear-gradient(180deg,
+    var(--d-bg) 0%,
+    rgba(255, 157, 104, .22) 23.558%,
+    #070403 39.423%,
+    rgba(120, 66, 38, .5) 62.5%,
+    rgba(28, 22, 18, .94) 75.504%,
+    var(--d-bg) 84.836%,
+    var(--d-bg) 100%);
+}
+[data-theme="dark"] .history__bg-inner img { opacity: .8; }
+/* мягкие края фото сверху и снизу (в светлой теме их даёт белый градиент) */
+[data-theme="dark"] .history__bg {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 60%, transparent 86%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 60%, transparent 86%);
+}
+[data-theme="dark"] .panel { filter: drop-shadow(0 5px 12px rgba(0, 0, 0, .45)); }
+[data-theme="dark"] .panel--plain { background: rgba(28, 33, 42, .82); }
+[data-theme="dark"] .panel--gradient {
+  background: linear-gradient(170.17deg, rgba(28, 33, 42, .84) 14.644%, rgba(36, 54, 80, .84) 85.356%);
+}
+[data-theme="dark"] .history__lead2 { background: rgba(20, 18, 16, .85); }
+
+/* Собрания */
+[data-theme="dark"] .day { background: var(--grey); }
+[data-theme="dark"] .slot__time,
+[data-theme="dark"] .shofar__text,
+[data-theme="dark"] .shofar__yt { color: var(--ink); }
+[data-theme="dark"] .shofar { border-color: rgba(194, 219, 250, .55); background: rgba(194, 219, 250, .04); }
+[data-theme="dark"] .shofar__yt img { filter: invert(1); }
+
+/* Тёплый градиент: от графита через тлеющий янтарь к ночной синеве */
+[data-theme="dark"] .warm {
+  background: linear-gradient(180deg,
+    var(--d-bg) 12.03%,
+    #4a2717 56.7%,
+    #16243d 96.75%);
+  background-color: #16243d;
+}
+
+/* Трансляция */
+[data-theme="dark"] .broadcast__status { border-color: var(--d-line); }
+[data-theme="dark"] .broadcast__status.is-live { border-color: #ff5a5a; color: #ff6b6b; }
+[data-theme="dark"] .broadcast__status.is-live::before { background: #ff5a5a; }
+[data-theme="dark"] .broadcast__media { box-shadow: 0 8px 24px rgba(0, 0, 0, .6); }
+[data-theme="dark"] .broadcast__note { color: var(--ink); }
+[data-theme="dark"] .broadcast__note:hover,
+[data-theme="dark"] .broadcast__note:focus-visible { color: #ffd4ab; }
+
+/* Контакты: чёрные значки становятся светлыми */
+[data-theme="dark"] .contact__icon { filter: invert(1); }
+
+/* Форма */
+[data-theme="dark"] .cform {
+  background: linear-gradient(136.49deg, var(--d-card-a) 14.644%, var(--d-card-b) 85.356%);
+  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, .6));
+}
+[data-theme="dark"] .field input,
+[data-theme="dark"] .field textarea {
+  border-color: rgba(255, 212, 171, .35);
+  background: rgba(10, 9, 8, .45);
+}
+[data-theme="dark"] .field input:focus,
+[data-theme="dark"] .field textarea:focus { border-color: rgba(255, 212, 171, .8); }
+[data-theme="dark"] .field input::placeholder,
+[data-theme="dark"] .field textarea::placeholder { color: rgba(244, 236, 227, .45); }
+[data-theme="dark"] .cform__btn { background: #ffd4ab; color: #1a1410; }
+[data-theme="dark"] .cform__status.is-ok { color: #7ddc98; }
+[data-theme="dark"] .cform__status.is-error { color: #ff8a80; }
+
+/* Карта: элементы управления в тон тёмной теме (сами тайлы карты не меняются) */
+[data-theme="dark"] .contacts__map .leaflet-bar a,
+[data-theme="dark"] .contacts__map .leaflet-bar a.leaflet-disabled { background: var(--d-card-a); border-bottom-color: rgba(255, 255, 255, .12); }
+[data-theme="dark"] .contacts__map .leaflet-bar a:hover { background: var(--d-card-b); }
+[data-theme="dark"] .contacts__map .leaflet-bar a.leaflet-disabled { color: rgba(244, 236, 227, .3); }
+[data-theme="dark"] .contacts__map .leaflet-control-attribution { background: rgba(20, 18, 16, .85); }
+[data-theme="dark"] .contacts__map .leaflet-control-attribution a { color: #ffd4ab; }
+[data-theme="dark"] .contacts__map .leaflet-popup-content-wrapper,
+[data-theme="dark"] .contacts__map .leaflet-popup-tip { background: var(--d-card-a); }
+
+/* Пожертвования и подвал */
+[data-theme="dark"] .donate__glow { opacity: .1; }
+[data-theme="dark"] .footer { border-top-color: rgba(244, 236, 227, .25); }
