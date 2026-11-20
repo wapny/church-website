@@ -7,12 +7,18 @@
   <meta name="description" content="Церковь «Маяк Надежды» в Риге: социальное служение, расписание собраний, трансляции, контакты и реквизиты для пожертвований.">
   <meta name="theme-color" content="#060606">
 
-  <!-- Иконка сайта (favicon): белый символ логотипа на прозрачном фоне, без надписей.
-       При замене иконки давайте файлам НОВЫЕ имена: Safari и Chrome держат иконки в своём
-       кэше по адресу файла и не всегда замечают изменения при том же имени. -->
-  <link rel="icon" href="favicon-mayak.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-mayak-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-mayak-16x16.png">
+  <!-- Иконка сайта (favicon): символ логотипа без надписей, фон прозрачный. Две версии:
+       тёмный символ — для светлой темы браузера, белый — для тёмной.
+       1) запасной ICO (тёмный символ) — для браузеров, которые не выбирают по теме;
+       2) PNG с media — выбор по теме браузера;
+       3) SVG сама меняет цвет символа по теме (Chrome, Edge, Firefox).
+       При замене иконки давайте файлам НОВЫЕ имена — браузеры держат иконки в кэше по адресу. -->
+  <link rel="icon" href="favicon-theme-light.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-theme-light-32x32.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-theme-light-16x16.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-theme-dark-32x32.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-theme-dark-16x16.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/svg+xml" href="favicon-theme-auto.svg">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-mayak.png">
   <link rel="manifest" href="mayak.webmanifest">
 
