@@ -8,31 +8,34 @@
   <meta name="theme-color" content="#060606">
 
   <!-- Иконка сайта (favicon): символ логотипа без надписей, фон прозрачный.
-       Светлая тема браузера — тёмный символ (favicon-v4-light-*), тёмная тема — белый (favicon-v4-dark-*).
+       Светлая тема браузера — тёмный символ (favicon-v5-light-*), тёмная тема — светлый (favicon-v5-dark-*).
        Скрипт вписывает ссылки на нужную версию прямо при чтении страницы (Safari учитывает
        только такие ссылки) и меняет их при переключении темы. Без JavaScript — тёмный символ.
+       ВАЖНО: светлый символ окрашен в #FFF5DE, а не в чистый белый. Safari на Mac в тёмной
+       теме сам кладёт серую плашку под одноцветные серые/белые иконки; оттенки #FFF7E4…#FFF3D9
+       проверены в Safari 18.2 и проходят без плашки, а #FFFFFF, #FFFAEB, #FFF1D4 — нет.
        При замене иконки давайте файлам НОВЫЕ имена — браузеры держат иконки в кэше по адресу. -->
   <script>
     (function () {
       var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
       var v = mq && mq.matches ? 'dark' : 'light';
       document.write(
-        '<link rel="icon" type="image/png" sizes="32x32" href="favicon-v4-' + v + '-32x32.png" data-favicon="32x32.png">' +
-        '<link rel="icon" type="image/png" sizes="16x16" href="favicon-v4-' + v + '-16x16.png" data-favicon="16x16.png">' +
-        '<link rel="shortcut icon" href="favicon-v4-' + v + '.ico" data-favicon="ico">');
+        '<link rel="icon" type="image/png" sizes="32x32" href="favicon-v5-' + v + '-32x32.png" data-favicon="32x32.png">' +
+        '<link rel="icon" type="image/png" sizes="16x16" href="favicon-v5-' + v + '-16x16.png" data-favicon="16x16.png">' +
+        '<link rel="shortcut icon" href="favicon-v5-' + v + '.ico" data-favicon="ico">');
       if (!mq) return;
       function update() {
         var t = mq.matches ? 'dark' : 'light';
         document.querySelectorAll('link[data-favicon]').forEach(function (l) {
           var k = l.getAttribute('data-favicon');
-          l.href = 'favicon-v4-' + t + (k === 'ico' ? '.ico' : '-' + k);
+          l.href = 'favicon-v5-' + t + (k === 'ico' ? '.ico' : '-' + k);
         });
       }
       if (mq.addEventListener) mq.addEventListener('change', update);
       else if (mq.addListener) mq.addListener(update);
     })();
   </script>
-  <noscript><link rel="icon" href="favicon-v4-light.ico"></noscript>
+  <noscript><link rel="icon" href="favicon-v5-light.ico"></noscript>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-mayak.png">
   <link rel="manifest" href="mayak.webmanifest">
 
