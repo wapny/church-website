@@ -242,24 +242,6 @@
     });
   }
 
-  /* ---------- Тема оформления: светлая (исходная) / тёмная ----------
-     Выбор сохраняется в браузере посетителя (localStorage) и применяется
-     ещё до отрисовки страницы — см. скрипт в <head> index.html. */
-  var themeBtn = document.querySelector('[data-theme-toggle]');
-  if (themeBtn) {
-    var root = document.documentElement;
-    var syncTheme = function () {
-      themeBtn.setAttribute('aria-pressed', root.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
-    };
-    themeBtn.addEventListener('click', function () {
-      var dark = root.getAttribute('data-theme') !== 'dark';
-      if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
-      try { localStorage.setItem('mayak-theme', dark ? 'dark' : 'light'); } catch (e) { /* без сохранения тоже работает */ }
-      syncTheme();
-    });
-    syncTheme();
-  }
-
   /* ---------- Форма обратной связи ----------
      Если в data-endpoint указан адрес сервиса форм (например Formspree),
      сообщение уходит туда. Если адрес пустой, форма показывает подсказку. */

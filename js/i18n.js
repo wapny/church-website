@@ -25,7 +25,6 @@
     'map.church': 'Церковь «Маяк Надежды»',
     'menu.open': 'Открыть меню',
     'menu.close': 'Закрыть меню',
-    'theme.dark': 'Тёмная тема',
     'form.sending': 'Отправляем…',
     'form.ok': 'Спасибо! Ваше сообщение отправлено. Мы ответим вам на указанную почту.',
     'form.invalid': 'Пожалуйста, заполните все поля и проверьте адрес электронной почты.',
@@ -49,7 +48,6 @@
     'nav.contacts': 'kontakti',
     'menu.open': 'Atvērt izvēlni',
     'menu.close': 'Aizvērt izvēlni',
-    'theme.dark': 'Tumšais režīms',
 
     'hero.label': 'Laipni lūdzam',
     'hero.title': 'Laipni<br>lūdzam',
@@ -151,7 +149,6 @@
     'nav.contacts': 'contacts',
     'menu.open': 'Open menu',
     'menu.close': 'Close menu',
-    'theme.dark': 'Dark theme',
 
     'hero.label': 'Welcome',
     'hero.title': 'Welcome',
