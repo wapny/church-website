@@ -161,32 +161,33 @@
         <a class="broadcast__note" href="https://www.youtube.com/@mayaknadezdi" target="_blank" rel="noopener" data-i18n="broadcast.note">Переходи на YouTube-канал — там транслируются молитва, библейский семинар и воскресное богослужение!</a>
       </section>
 
-      <!-- ===== Служения ===== -->
+      <!-- ===== Служения =====
+           Нажатие на фото или название открывает окно с библейским местом (js/verses.js, data-verse) -->
       <section class="ministries" id="ministries">
         <h2 class="title title--xl" data-i18n="ministries.title">Служения</h2>
 
         <ul class="ministries__grid">
-          <li class="ministry">
+          <li class="ministry" data-verse="children">
             <div class="ministry__photo"><img src="assets/ministry-children.webp" alt="Детское служение" data-i18n-alt="m.childrenAlt"></div>
             <p class="ministry__name" data-i18n="m.children">Детское</p>
           </li>
-          <li class="ministry">
+          <li class="ministry" data-verse="youth">
             <div class="ministry__photo"><img class="crop-youth" src="assets/ministry-youth.webp" alt="Молодёжное служение" data-i18n-alt="m.youthAlt"></div>
             <p class="ministry__name" data-i18n="m.youth">Молодежное</p>
           </li>
-          <li class="ministry">
+          <li class="ministry" data-verse="golden">
             <div class="ministry__photo"><img src="assets/ministry-golden.webp" alt="Служение «Золотой век»" data-i18n-alt="m.goldenAlt"></div>
             <p class="ministry__name" data-i18n="m.golden">Золотой век</p>
           </li>
-          <li class="ministry">
+          <li class="ministry" data-verse="praise">
             <div class="ministry__photo"><img class="crop-praise" src="assets/ministry-praise.webp" alt="Прославление" data-i18n-alt="m.praiseAlt"></div>
             <p class="ministry__name" data-i18n="m.praise">Прославление</p>
           </li>
-          <li class="ministry">
+          <li class="ministry" data-verse="social">
             <div class="ministry__photo"><img class="crop-social" src="assets/ministry-social.webp" alt="Социальное служение" data-i18n-alt="m.socialAlt"></div>
             <p class="ministry__name" data-i18n="m.social">Социальное</p>
           </li>
-          <li class="ministry">
+          <li class="ministry" data-verse="recovery">
             <div class="ministry__photo"><img class="crop-recovery" src="assets/ministry-recovery.webp" alt="Помощь зависимым" data-i18n-alt="m.recoveryAlt"></div>
             <p class="ministry__name" data-i18n="m.recovery">Восстановление</p>
           </li>
@@ -321,6 +322,7 @@
 
   <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/verses.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="js/map.js"></script>
 </body>

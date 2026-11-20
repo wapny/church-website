@@ -978,3 +978,123 @@ button { font: inherit; }
   .footer__inner p:nth-child(1) { width: auto; max-width: 280px; }
   .footer br { display: none; }
 }
+
+/* ---------- Служения: окно с библейским местом (js/verses.js) ---------- */
+.ministry[data-verse] .ministry__photo,
+.ministry[data-verse] .ministry__name { cursor: pointer; }
+.ministry[data-verse] .ministry__photo img { transition: transform .5s ease; }
+@media (hover: hover) {
+  .ministry[data-verse]:has(.ministry__photo:hover, .ministry__name:hover) .ministry__photo img { transform: scale(1.03); }
+}
+.ministry[data-verse] .ministry__photo:focus-visible,
+.ministry[data-verse] .ministry__name:focus-visible { outline-offset: 4px; border-radius: 25px; }
+
+.verse-pop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(6, 6, 6, .32);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.verse-pop[hidden] { display: none; }
+.verse-pop.is-open { opacity: 1; }
+
+.verse-pop__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(520px, 100%);
+  max-height: min(78vh, 680px);
+  padding: 26px 28px 20px;
+  border-radius: 28px;
+  background: linear-gradient(136.49deg, var(--peach-a) 14.644%, var(--peach-b) 85.356%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .35), 0 5px 9px rgba(0, 0, 0, .25);
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(18px) scale(.96);
+  transition: opacity .32s ease, transform .42s cubic-bezier(.2, .9, .25, 1.15);
+}
+.verse-pop.is-open .verse-pop__card { opacity: 1; transform: none; }
+
+.verse-pop__close {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 38px; height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(6, 6, 6, .35);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .55);
+  color: var(--ink);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .2s ease, transform .2s ease;
+}
+.verse-pop__close:hover { background: rgba(255, 255, 255, .9); transform: rotate(90deg); }
+
+.verse-pop__title {
+  padding: 0 40px;
+  font-family: var(--font-head);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 36px;
+  text-align: center;
+}
+/* книга, глава и стихи — в «пилюле», как подписи в разделе «О нас» */
+.verse-pop__ref {
+  align-self: center;
+  margin: 12px 0 18px;
+  padding: 2px 18px;
+  border: 1px solid #000;
+  border-radius: 25px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: .01em;
+  text-align: center;
+}
+.verse-pop__text {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px 4px 4px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.verse-pop__text p + p { margin-top: 6px; }
+.verse-pop__num {
+  margin-right: 2px;
+  font-size: .68em;
+  font-weight: 600;
+  color: #b4521f;
+  vertical-align: super;
+  line-height: 0;
+}
+.verse-pop__src {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(6, 6, 6, .15);
+  font-size: 13px;
+  line-height: 16px;
+  text-align: right;
+  font-style: italic;
+  color: rgba(6, 6, 6, .6);
+}
+
+@media (max-width: 640px) {
+  .verse-pop__card { padding: 22px 18px 16px; border-radius: 24px; max-height: 82vh; }
+  .verse-pop__title { font-size: 24px; line-height: 30px; }
+  .verse-pop__ref { font-size: 15px; margin: 10px 0 14px; }
+  .verse-pop__text { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .verse-pop, .verse-pop__card { transition: none; }
+}
