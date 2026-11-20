@@ -8,34 +8,31 @@
   <meta name="theme-color" content="#060606">
 
   <!-- Иконка сайта (favicon): символ логотипа без надписей, фон прозрачный.
-       Светлая тема браузера — тёмный символ (favicon-v3-light-*), тёмная тема — белый (favicon-v3-dark-*).
-       Ссылки с media работают без JavaScript. Скрипт ниже оставляет одну иконку под текущую тему
-       и меняет её при переключении темы — так Safari не выбирает «не ту» версию.
+       Светлая тема браузера — тёмный символ (favicon-v4-light-*), тёмная тема — белый (favicon-v4-dark-*).
+       Скрипт вписывает ссылки на нужную версию прямо при чтении страницы (Safari учитывает
+       только такие ссылки) и меняет их при переключении темы. Без JavaScript — тёмный символ.
        При замене иконки давайте файлам НОВЫЕ имена — браузеры держат иконки в кэше по адресу. -->
-  <link rel="icon" href="favicon-v3-light.ico" sizes="16x16 32x32 48x48">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-v3-light-32x32.png" media="(prefers-color-scheme: light)">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-v3-light-16x16.png" media="(prefers-color-scheme: light)">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-v3-dark-32x32.png" media="(prefers-color-scheme: dark)">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-v3-dark-16x16.png" media="(prefers-color-scheme: dark)">
   <script>
     (function () {
       var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+      var v = mq && mq.matches ? 'dark' : 'light';
+      document.write(
+        '<link rel="icon" type="image/png" sizes="32x32" href="favicon-v4-' + v + '-32x32.png" data-favicon="32x32.png">' +
+        '<link rel="icon" type="image/png" sizes="16x16" href="favicon-v4-' + v + '-16x16.png" data-favicon="16x16.png">' +
+        '<link rel="shortcut icon" href="favicon-v4-' + v + '.ico" data-favicon="ico">');
       if (!mq) return;
-      function setIcon() {
-        var v = mq.matches ? 'dark' : 'light';
-        document.querySelectorAll('link[rel~="icon"]').forEach(function (l) { l.remove(); });
-        var link = document.createElement('link');
-        link.rel = 'icon';
-        link.type = 'image/png';
-        link.setAttribute('sizes', '32x32');
-        link.href = 'favicon-v3-' + v + '-32x32.png';
-        document.head.appendChild(link);
+      function update() {
+        var t = mq.matches ? 'dark' : 'light';
+        document.querySelectorAll('link[data-favicon]').forEach(function (l) {
+          var k = l.getAttribute('data-favicon');
+          l.href = 'favicon-v4-' + t + (k === 'ico' ? '.ico' : '-' + k);
+        });
       }
-      setIcon();
-      if (mq.addEventListener) mq.addEventListener('change', setIcon);
-      else if (mq.addListener) mq.addListener(setIcon);
+      if (mq.addEventListener) mq.addEventListener('change', update);
+      else if (mq.addListener) mq.addListener(update);
     })();
   </script>
+  <noscript><link rel="icon" href="favicon-v4-light.ico"></noscript>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-mayak.png">
   <link rel="manifest" href="mayak.webmanifest">
 
