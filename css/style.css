@@ -530,7 +530,8 @@ button { font: inherit; }
   object-fit: cover;
 }
 /* точные кадрирования из макета */
-.ministry__photo img.crop-youth    { inset: auto; left: -46.12%; top: -60.02%; width: 195.87%; height: 180.61%; object-fit: fill; }
+.ministry__photo img.crop-youth    { object-position: 50% 40%; } /* молодёжь и сцена в центре кадра */
+.ministry__photo img.crop-golden   { object-position: 50% 62%; } /* все шесть человек за столом */
 .ministry__photo img.crop-praise   { inset: auto; left: -15.51%; top: -7.25%;  width: 130.71%; height: 134.3%;  object-fit: fill; }
 .ministry__photo img.crop-social   { object-position: bottom; }
 .ministry__photo img.crop-recovery { inset: auto; left: -0.05%;  top: -35.43%; width: 110.96%; height: 176.12%; object-fit: fill; }
