@@ -303,9 +303,10 @@
 
       <!-- ===== Пожертвования ===== -->
       <section class="donate" id="donate">
-        <img class="donate__glow" src="assets/donate-glow.svg" alt="" aria-hidden="true">
-
         <h2 class="title title--xl donate__title" data-i18n="donate.title">Пожертвования</h2>
+        <!-- Подзаголовок и карточки — в общем блоке: за ним белое свечение (.donate__body::before),
+             которое растягивается по высоте блока на любом экране -->
+        <div class="donate__body">
         <p class="title title--lg donate__sub" data-i18n="donate.sub">Поддержать наше служение</p>
 
         <!-- Карточки реквизитов. Названия получателей, банков и IBAN одинаковы на всех языках.
@@ -337,6 +338,7 @@
               <span class="req__copy-done" data-i18n="donate.copied" aria-hidden="true">Скопировано!</span>
             </button>
           </article>
+        </div>
         </div>
         <!-- Сообщение для экранных читалок: «Скопировано!» / ошибка -->
         <p class="sr-only" id="donate-status" role="status" aria-live="polite"></p>

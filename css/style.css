@@ -724,15 +724,37 @@ button { font: inherit; }
   margin: 0 auto;
   padding-bottom: 11px;
 }
-.donate__glow {
-  position: absolute;
-  left: -150px; top: -85px;
-  width: calc(100% + 300px); height: 694px;
-  max-width: none;
-  pointer-events: none;
-  z-index: 0;
-}
 .donate__title, .donate__sub, .donate__grid, .donate__thanks { position: relative; z-index: 1; }
+
+/* Белое свечение за подзаголовком и карточками. Растягивается по блоку .donate__body,
+   поэтому на телефоне (карточки друг под другом) сопровождает обе карточки.
+   Края уходят в прозрачность плавно, оранжево-голубой градиент .warm остаётся видимым.
+   Ширина и выступы сверху/снизу заданы переменными — меньше на планшете и телефоне. */
+.donate__body {
+  --glow-out-x: 180px;   /* насколько свечение шире блока с каждой стороны */
+  --glow-out-top: 130px; /* выше подзаголовка — мягко захватывает и заголовок */
+  --glow-out-bottom: 110px;
+  position: relative;
+  z-index: 0; /* ниже заголовка (z-index: 1): свечение не ложится поверх текста */
+}
+.donate__body::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: calc(-1 * var(--glow-out-top));
+  bottom: calc(-1 * var(--glow-out-bottom));
+  left: calc(-1 * var(--glow-out-x));
+  right: calc(-1 * var(--glow-out-x));
+  pointer-events: none;
+  background: radial-gradient(closest-side,
+    rgba(255, 255, 255, .96) 0%,
+    rgba(255, 255, 255, .93) 36%,
+    rgba(255, 255, 255, .8) 54%,
+    rgba(255, 255, 255, .56) 69%,
+    rgba(255, 255, 255, .3) 81%,
+    rgba(255, 255, 255, .11) 91%,
+    rgba(255, 255, 255, 0) 100%);
+}
 /* Подзаголовок — как заголовки второго уровня сайта (.title--lg) */
 .donate__sub { margin-top: 14px; }
 
@@ -810,9 +832,9 @@ button { font: inherit; }
   position: relative;
   z-index: 1;
   border-top: 1px solid var(--ink-soft);
-  /* Нижний отступ 48 px: свечение .donate__glow (высота 694 px) должно целиком
-     помещаться внутри градиента .warm — иначе на широких экранах оно выходило
-     ниже градиента и под ним был виден белый фон body. На ≤640 px — прежние 10 px. */
+  /* Нижний отступ 48 px (на ≤640 px — 10 px). Раньше он был нужен, чтобы свечение
+     раздела пожертвований помещалось внутри градиента .warm; теперь свечение
+     привязано к карточкам (.donate__body::before) и заканчивается выше подвала. */
   padding: 34px 0 48px;
 }
 .footer__inner {
@@ -951,6 +973,7 @@ button { font: inherit; }
   .contacts__grid { margin-top: 56px; }
   .cform { margin-top: 56px; }
   .donate__grid { margin-top: 48px; }
+  .donate__body { --glow-out-x: 110px; --glow-out-top: 110px; --glow-out-bottom: 90px; }
 }
 
 /* ---- Пожертвования: карточки друг под другом ---- */
@@ -1028,6 +1051,20 @@ button { font: inherit; }
   .cform__btn { width: 100%; }
 
   .donate__sub { margin-top: 10px; }
+  /* Карточки друг под другом: вместо эллипса — вытянутое свечение («капсула»),
+     ровное вдоль обеих карточек, мягко гаснущее к краям экрана, вверху и внизу */
+  .donate__body { --glow-out-x: 110px; --glow-out-top: 150px; --glow-out-bottom: 120px; }
+  .donate__body::before {
+    background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, .5) 13%,
+      rgba(255, 255, 255, .88) 30%,
+      rgba(255, 255, 255, .88) 70%,
+      rgba(255, 255, 255, .5) 87%,
+      rgba(255, 255, 255, 0) 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  }
   .donate__grid { margin-top: 36px; padding: 0 16px; gap: 24px; }
   .req { padding: 24px 18px 22px; border-radius: 24px; }
   .req__name { font-size: 24px; line-height: 30px; }
