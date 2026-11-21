@@ -30,7 +30,8 @@
     'form.invalid': 'Пожалуйста, заполните все поля и проверьте адрес электронной почты.',
     'form.error': 'Не удалось отправить сообщение. Попробуйте ещё раз или напишите нам на ceribubaka@gmail.com.',
     'form.demo': 'Форма ещё не подключена к почте. Пока напишите нам на ceribubaka@gmail.com.',
-    'form.offline': 'Нет подключения к интернету. Проверьте соединение и попробуйте ещё раз.'
+    'form.offline': 'Нет подключения к интернету. Проверьте соединение и попробуйте ещё раз.',
+    'donate.copyFail': 'Не удалось скопировать. Выделите реквизиты и скопируйте их вручную.'
   };
 
   var LV = {
@@ -128,8 +129,18 @@
     'form.offline': 'Nav interneta savienojuma. Pārbaudi savienojumu un mēģini vēlreiz.',
 
     'donate.title': 'Ziedojumi',
+    'donate.sub': 'Atbalstīt mūsu kalpošanu',
     'donate.church': 'Cerību Bāka',
     'donate.shofar': 'Šofar',
+    'donate.recipient': 'Saņēmējs',
+    'donate.bank': 'Banka',
+    'donate.copy': 'Kopēt rekvizītus',
+    'donate.copied': 'Nokopēts!',
+    'donate.copyChurch': 'Kopēt rekvizītus: Cerību Bāka',
+    'donate.copyShofar': 'Kopēt rekvizītus: Šofar',
+    'donate.copyFail': 'Neizdevās nokopēt. Iezīmē rekvizītus un nokopē tos manuāli.',
+    'donate.thanks': 'Paldies par tavu atbalstu!',
+    'donate.thanksText': 'Tavs ieguldījums palīdz mums nest cilvēkiem Dieva mīlestību, cerību un Dieva Vārdu.',
 
     'footer.p1': 'Mūsu draudze ir Latvijas vasarsvētku draudžu centra locekle'
   };
@@ -229,8 +240,18 @@
     'form.offline': 'No internet connection. Please check your connection and try again.',
 
     'donate.title': 'Donations',
+    'donate.sub': 'Support our ministry',
     'donate.church': 'Lighthouse of Hope',
     'donate.shofar': 'Shofar',
+    'donate.recipient': 'Recipient',
+    'donate.bank': 'Bank',
+    'donate.copy': 'Copy bank details',
+    'donate.copied': 'Copied!',
+    'donate.copyChurch': 'Copy bank details: Lighthouse of Hope',
+    'donate.copyShofar': 'Copy bank details: Shofar',
+    'donate.copyFail': 'Could not copy. Please select the details and copy them manually.',
+    'donate.thanks': 'Thank you for your support!',
+    'donate.thanksText': 'Your gift helps us bring God’s love, hope and the Word of God to people.',
 
     'footer.p1': 'Our church is a member of the Latvian Pentecostal Churches Center'
   };

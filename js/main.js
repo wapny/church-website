@@ -313,4 +313,77 @@
       });
     });
   }
+
+  /* ---------- Пожертвования: кнопки «Скопировать реквизиты» ----------
+     Копируются реквизиты только своей карточки, подписи — на текущем языке сайта:
+       Маяк Надежды
+       Получатель: …
+       Банк: …
+       IBAN: LV49HABA0551059126455   (без пробелов — из data-copy) */
+  var donateStatus = document.getElementById('donate-status');
+  var tr = function (k) { return window.I18N ? window.I18N.t(k) : k; };
+
+  function cardText(card) {
+    var lines = [card.querySelector('.req__name').textContent.trim()];
+    card.querySelectorAll('.req__row').forEach(function (row) {
+      var dd = row.querySelector('dd');
+      lines.push(row.querySelector('dt').textContent.trim() + ': ' + (dd.getAttribute('data-copy') || dd.textContent.trim()));
+    });
+    return lines.join('\n');
+  }
+
+  // Запасной способ для старых браузеров и страниц без HTTPS
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).catch(function () {
+        if (!legacyCopy(text)) throw new Error('copy failed');
+      });
+    }
+    return legacyCopy(text) ? Promise.resolve() : Promise.reject(new Error('copy failed'));
+  }
+
+  function selectDetails(card) {
+    var sel = window.getSelection && window.getSelection();
+    if (!sel) return;
+    var range = document.createRange();
+    range.selectNodeContents(card.querySelector('.req__list'));
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  document.querySelectorAll('.req__copy').forEach(function (btn) {
+    var card = btn.closest('.req');
+    var timer;
+    btn.addEventListener('click', function () {
+      copyText(cardText(card)).then(function () {
+        document.querySelectorAll('.req__copy.is-copied').forEach(function (b) { if (b !== btn) b.classList.remove('is-copied'); });
+        btn.classList.add('is-copied');
+        if (donateStatus) donateStatus.textContent = tr('donate.copied');
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          btn.classList.remove('is-copied');
+          if (donateStatus) donateStatus.textContent = '';
+        }, 2200);
+      }).catch(function () {
+        // Не получилось — выделяем реквизиты, чтобы их можно было скопировать вручную
+        selectDetails(card);
+        if (donateStatus) donateStatus.textContent = tr('donate.copyFail');
+        window.alert(tr('donate.copyFail'));
+      });
+    });
+  });
 })();

@@ -732,23 +732,78 @@ button { font: inherit; }
   pointer-events: none;
   z-index: 0;
 }
-.donate__title, .donate__grid { position: relative; z-index: 1; }
+.donate__title, .donate__sub, .donate__grid, .donate__thanks { position: relative; z-index: 1; }
+/* Подзаголовок — как заголовки второго уровня сайта (.title--lg) */
+.donate__sub { margin-top: 14px; }
 
+/* Две равноправные карточки рядом; на телефоне — друг под другом */
 .donate__grid {
-  margin-top: 113px;
-  padding-left: 176px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 440px));
+  justify-content: center;
+  gap: 40px;
+  margin-top: 64px;
+  padding: 0 24px;
+}
+.req {
   display: flex;
-  align-items: flex-start;
-  gap: 162px;
-  padding-bottom: 111px;
+  flex-direction: column;
+  padding: 32px 32px 30px;
+  border-radius: 28px;
+  background: linear-gradient(136.49deg, var(--peach-a) 14.644%, var(--peach-b) 85.356%);
+  filter: drop-shadow(0 5px 9px rgba(0, 0, 0, .35));
+  color: var(--ink);
 }
-.req { width: 392px; text-align: center; color: var(--ink); }
-.req--shofar { width: 313px; }
 .req__name {
-  font-size: 24px; font-weight: 400; line-height: 29px;
-  margin-bottom: 44px;
+  font-family: var(--font-head);
+  font-size: 28px; font-weight: 500; line-height: 34px;
+  text-align: center;
 }
-.req__data { font-size: 24px; line-height: 29px; }
+.req__list { margin: 24px 0 28px; flex: 1; }
+.req__row + .req__row { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(6, 6, 6, .12); }
+.req__row dt {
+  font-size: 13px; font-weight: 600; line-height: 16px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(6, 6, 6, .55);
+}
+.req__row dd {
+  margin: 4px 0 0;
+  font-size: 20px; font-weight: 500; line-height: 26px;
+  overflow-wrap: anywhere;
+}
+/* IBAN группами по 4 знака; одно нажатие выделяет его целиком */
+.req__iban {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .03em;
+  -webkit-user-select: all;
+  user-select: all;
+}
+.req__copy {
+  align-self: center;
+  display: inline-grid;
+  justify-items: center;
+  min-width: 260px;
+  max-width: 100%;
+  padding-left: 28px; padding-right: 28px;
+}
+/* обе надписи в одной ячейке: ширина кнопки не меняется при «Скопировано!» */
+.req__copy-text, .req__copy-done { grid-area: 1 / 1; transition: opacity .2s ease; }
+.req__copy-done { opacity: 0; }
+.req__copy.is-copied { background: #14602b; opacity: 1; }
+.req__copy.is-copied .req__copy-text { opacity: 0; }
+.req__copy.is-copied .req__copy-done { opacity: 1; }
+
+/* Завершающий блок: разделитель и благодарность */
+.donate__thanks {
+  width: min(640px, 100% - 48px);
+  margin: 64px auto 0;
+  padding: 40px 0 111px;
+  border-top: 1px solid rgba(6, 6, 6, .25);
+  text-align: center;
+  color: var(--ink);
+}
+.donate__thanks-title { font-family: var(--font-head); font-size: 28px; font-weight: 500; line-height: 34px; }
+.donate__thanks-text { margin-top: 12px; font-size: 20px; line-height: 28px; color: var(--ink-soft); }
 
 /* ---------- Footer ---------- */
 .footer {
@@ -815,11 +870,8 @@ button { font: inherit; }
   .pastors { width: 100%; }
   .about__card { width: min(354px, 100%); }
 
-  .donate__grid {
-    padding: 0 24px 111px;
-    justify-content: center;
-    gap: 80px;
-  }
+  .donate__grid { gap: 24px; }
+  .req { padding: 28px 24px 26px; }
 
   .footer__inner { padding: 0 48px; flex-wrap: wrap; justify-content: center; gap: 24px 64px; }
 }
@@ -898,7 +950,12 @@ button { font: inherit; }
 
   .contacts__grid { margin-top: 56px; }
   .cform { margin-top: 56px; }
-  .donate__grid { margin-top: 64px; }
+  .donate__grid { margin-top: 48px; }
+}
+
+/* ---- Пожертвования: карточки друг под другом ---- */
+@media (max-width: 760px) {
+  .donate__grid { grid-template-columns: minmax(0, 440px); gap: 28px; }
 }
 
 /* ---- Phone ---- */
@@ -970,14 +1027,29 @@ button { font: inherit; }
   .cform__row { grid-template-columns: 1fr; gap: 16px; }
   .cform__btn { width: 100%; }
 
-  .donate__grid { flex-direction: column; align-items: center; gap: 44px; padding: 0 16px 72px; margin-top: 44px; }
-  .req, .req--shofar { width: 100%; max-width: 392px; }
-  .req__name { margin-bottom: 14px; font-size: 22px; }
-  .req__data { font-size: 20px; line-height: 26px; overflow-wrap: anywhere; }
+  .donate__sub { margin-top: 10px; }
+  .donate__grid { margin-top: 36px; padding: 0 16px; gap: 24px; }
+  .req { padding: 24px 18px 22px; border-radius: 24px; }
+  .req__name { font-size: 24px; line-height: 30px; }
+  .req__list { margin: 18px 0 22px; }
+  .req__row + .req__row { margin-top: 12px; padding-top: 12px; }
+  .req__row dd { font-size: 18px; line-height: 24px; }
+  .req__copy { align-self: stretch; min-width: 0; }
+  .donate__thanks { width: calc(100% - 32px); margin-top: 44px; padding: 28px 0 72px; }
+  .donate__thanks-title { font-size: 24px; line-height: 30px; }
+  .donate__thanks-text { font-size: 17px; line-height: 24px; }
+  /* IBAN в одну строку и на узких телефонах */
+  .req__row .req__iban { font-size: clamp(15px, 4.8vw, 18px); letter-spacing: .01em; }
 
   .footer__inner { flex-direction: column; align-items: center; padding: 0 20px; gap: 18px; }
   .footer__inner p:nth-child(1) { width: auto; max-width: 280px; }
   .footer br { display: none; }
+}
+
+/* ---- Узкие телефоны (≤360 px): заголовок и кнопки раздела пожертвований помещаются по ширине ---- */
+@media (max-width: 360px) {
+  .donate__title { font-size: 34px; line-height: 42px; }
+  .req__copy { padding-left: 14px; padding-right: 14px; font-size: 18px; }
 }
 
 /* ---------- Служения: окно с библейским местом (js/verses.js) ---------- */

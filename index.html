@@ -306,16 +306,44 @@
         <img class="donate__glow" src="assets/donate-glow.svg" alt="" aria-hidden="true">
 
         <h2 class="title title--xl donate__title" data-i18n="donate.title">Пожертвования</h2>
+        <p class="title title--lg donate__sub" data-i18n="donate.sub">Поддержать наше служение</p>
 
+        <!-- Карточки реквизитов. Названия получателей, банков и IBAN одинаковы на всех языках.
+             Кнопка копирует реквизиты своей карточки (js/main.js, блок «Пожертвования»);
+             IBAN копируется без пробелов — из атрибута data-copy. -->
         <div class="donate__grid">
-          <div class="req">
+          <article class="req">
             <h3 class="req__name" data-i18n="donate.church">Маяк Надежды</h3>
-            <p class="req__data">CERĪBU BĀKA KRISTĪGĀ DRAUDZE<br>LV49HABA0551059126455<br>SWEDBANK AS</p>
-          </div>
-          <div class="req req--shofar">
+            <dl class="req__list">
+              <div class="req__row"><dt data-i18n="donate.recipient">Получатель</dt><dd>CERĪBU BĀKA KRISTĪGĀ DRAUDZE</dd></div>
+              <div class="req__row"><dt data-i18n="donate.bank">Банк</dt><dd>SWEDBANK AS</dd></div>
+              <div class="req__row"><dt>IBAN</dt><dd class="req__iban" data-copy="LV49HABA0551059126455">LV49 HABA 0551 0591 2645 5</dd></div>
+            </dl>
+            <button class="cform__btn req__copy" type="button" aria-label="Скопировать реквизиты: Маяк Надежды" data-i18n-aria="donate.copyChurch">
+              <span class="req__copy-text" data-i18n="donate.copy">Скопировать реквизиты</span>
+              <span class="req__copy-done" data-i18n="donate.copied" aria-hidden="true">Скопировано!</span>
+            </button>
+          </article>
+
+          <article class="req">
             <h3 class="req__name" data-i18n="donate.shofar">Шофар</h3>
-            <p class="req__data">SHOFAR<br>LV37UNLA0050022155082<br>SEB banka</p>
-          </div>
+            <dl class="req__list">
+              <div class="req__row"><dt data-i18n="donate.recipient">Получатель</dt><dd>SHOFAR</dd></div>
+              <div class="req__row"><dt data-i18n="donate.bank">Банк</dt><dd>SEB banka</dd></div>
+              <div class="req__row"><dt>IBAN</dt><dd class="req__iban" data-copy="LV37UNLA0050022155082">LV37 UNLA 0050 0221 5508 2</dd></div>
+            </dl>
+            <button class="cform__btn req__copy" type="button" aria-label="Скопировать реквизиты: Шофар" data-i18n-aria="donate.copyShofar">
+              <span class="req__copy-text" data-i18n="donate.copy">Скопировать реквизиты</span>
+              <span class="req__copy-done" data-i18n="donate.copied" aria-hidden="true">Скопировано!</span>
+            </button>
+          </article>
+        </div>
+        <!-- Сообщение для экранных читалок: «Скопировано!» / ошибка -->
+        <p class="sr-only" id="donate-status" role="status" aria-live="polite"></p>
+
+        <div class="donate__thanks">
+          <h3 class="donate__thanks-title" data-i18n="donate.thanks">Спасибо за вашу поддержку!</h3>
+          <p class="donate__thanks-text" data-i18n="donate.thanksText">Ваш вклад помогает нам нести Божью любовь, надежду и Слово Божье людям.</p>
         </div>
       </section>
 
