@@ -9,6 +9,12 @@
    - Русский текст берётся прямо из index.html, поэтому здесь его нет.
    - Латышский (lv) и английский (en) тексты лежат ниже. Чтобы поправить
      перевод — найдите ключ и измените строку.
+   - У каждого языка свой адрес: /church-website/ (RU), /lv/, /en/.
+     Страницы lv/index.html и en/index.html собирает scripts/build_site.py
+     из index.html и этих словарей — после любой правки текста или перевода
+     запустите: python3 scripts/build_site.py (см. SEO-SETUP.md).
+   - Этот скрипт нужен для текстов, которых нет в HTML (меню, сообщения формы,
+     трансляция, окна служений), и запоминает выбранный язык.
    ===================================================================== */
 (function () {
   'use strict';
@@ -52,6 +58,7 @@
 
     'hero.label': 'Laipni lūdzam',
     'hero.title': 'Laipni<br>lūdzam',
+    'hero.titleSeo': ' draudzē «Cerību Bāka» Rīgā',
 
     'about.title': 'Par mums',
     'about.pastorsAlt': 'Pastori Aleksandrs un Nelija Vapne',
@@ -60,6 +67,7 @@
     'about.text': '— tā ir dzīva kristiešu kopiena, kas apvieno aktīvu sociālo kalpošanu ar mesiāniskā virziena attīstību. Mūsu vēsture sākās pirms vairāk nekā 10 gadiem ar praktisku palīdzību cilvēkiem, un šodien šīs vērtības mums joprojām ir galvenās.',
 
     'history.title': 'Mūsu vēsture',
+    'history.photoAlt': 'Draudzes «Cerību Bāka» locekļi — kopbilde',
     'history.p1': 'Kalpošana izauga no labdarības fonda Kraukļu fonds («Krauku fonds») darbības, kas palīdzēja trūcīgām ģimenēm un cilvēkiem krīzes situācijās. Par fonda darbu vienā no attālajiem Rīgas rajoniem atbildēja Aleksandrs Vapne.',
     'history.p2': 'Tajā laikā Kungs vairāku kalpotāju sirdīs ielika vienu un to pašu atklāsmi par draudzes dibināšanu — šo vārdu viņi sadzirdēja vienlaikus, savā starpā nesarunājuši. 2015. gadā Aleksandrs un Nelija Vapne tika iesvētīti pastora kalpošanai, un draudze «Cerību Bāka» tika oficiāli apstiprināta.',
     'history.lead2': 'Sociālā kalpošana — mūsu prioritāte!',
@@ -163,6 +171,7 @@
 
     'hero.label': 'Welcome',
     'hero.title': 'Welcome',
+    'hero.titleSeo': ' to Lighthouse of Hope Church in Riga',
 
     'about.title': 'About us',
     'about.pastorsAlt': 'Pastors Alexander and Nelia Vapne',
@@ -171,6 +180,7 @@
     'about.text': '— is a living Christian community that combines active social ministry with the growth of the Messianic movement. Our story began more than 10 years ago with practical help for people, and today these values remain our priority.',
 
     'history.title': 'Our history',
+    'history.photoAlt': 'Members of Lighthouse of Hope Church — group photo',
     'history.p1': 'The ministry grew out of the work of the charitable foundation Kraukļu fonds (the “Ravens Foundation”), which helped low-income families and people in crisis. Alexander Vapne was responsible for the foundation’s work in one of Riga’s remote districts.',
     'history.p2': 'At that time the Lord placed the same revelation about founding a church on the hearts of several ministers — they heard this word at the same moment, without having agreed beforehand. In 2015 Alexander and Nelia Vapne were ordained to pastoral ministry, and the Lighthouse of Hope church was officially established.',
     'history.lead2': 'Social ministry is our priority!',
@@ -279,7 +289,9 @@
     });
   });
 
-  var current = 'ru';
+  // Язык страницы задан в <html lang> (ru — index.html, lv/en — сгенерированные страницы)
+  var pageLang = LANGS.indexOf(document.documentElement.lang) >= 0 ? document.documentElement.lang : 'ru';
+  var current = pageLang;
 
   function t(key) {
     var table = current === 'ru' ? ru : DICT[current];
@@ -297,10 +309,11 @@
     document.title = t('meta.title');
     if (metaDesc) metaDesc.setAttribute('content', t('meta.desc'));
 
-    document.querySelectorAll('[data-lang]').forEach(function (btn) {
-      var on = btn.getAttribute('data-lang') === current;
-      btn.classList.toggle('is-active', on);
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    document.querySelectorAll('[data-lang]').forEach(function (link) {
+      var on = link.getAttribute('data-lang') === current;
+      link.classList.toggle('is-active', on);
+      if (on) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
     });
   }
 
@@ -314,14 +327,39 @@
     document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: lang } }));
   }
 
-  window.I18N = { t: t, set: function (l) { setLang(l, true); }, get: function () { return current; } };
+  function remember(lang) {
+    try { localStorage.setItem(STORE_KEY, lang); } catch (e) { /* без сохранения тоже работает */ }
+  }
+  function langUrl(lang) {
+    var link = document.querySelector('a[data-lang="' + lang + '"]');
+    return link ? link.href.split('#')[0] + location.hash : null;
+  }
 
-  document.querySelectorAll('[data-lang]').forEach(function (btn) {
-    btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang'), true); });
+  // Переход на другую языковую версию: язык запоминается, раздел (#contacts и т. п.) сохраняется
+  window.I18N = {
+    t: t,
+    get: function () { return current; },
+    set: function (l) {
+      if (l === current) return;
+      var url = langUrl(l);
+      if (url) { remember(l); location.href = url; }
+    }
+  };
+
+  document.querySelectorAll('a[data-lang]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      remember(link.getAttribute('data-lang'));
+      if (location.hash) link.href = link.href.split('#')[0] + location.hash;
+    });
   });
 
+  // Посетитель раньше выбрал LV или EN и открыл главную (русскую) страницу — ведём на его версию.
+  // Поисковые роботы язык не запоминают, поэтому на них это не влияет.
   var saved = null;
   try { saved = localStorage.getItem(STORE_KEY); } catch (e) { /* ignore */ }
-  if (saved && saved !== 'ru') setLang(saved, false);
-  else apply();
+  if (pageLang === 'ru' && (saved === 'lv' || saved === 'en')) {
+    var target = langUrl(saved);
+    if (target) { location.replace(target); return; }
+  }
+  setLang(pageLang, false);
 })();

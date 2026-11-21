@@ -108,14 +108,16 @@ button { font: inherit; }
   line-height: 19px;
   color: #fff;
 }
-.nav__links a { transition: opacity .2s ease; }
-.nav__links a:hover { opacity: .7; }
+/* «>» — только пункты меню; ссылки языков (.nav__lang a) оформлены отдельно */
+.nav__links > a { transition: opacity .2s ease; }
+.nav__links > a:hover { opacity: .7; }
 
 .nav__toggle { display: none; }
 
 /* переключатель языка RU / LV / EN */
 .nav__lang { display: inline-flex; align-items: center; gap: 4px; }
-.nav__lang button {
+.nav__lang a {
+  display: inline-block;
   padding: 4px 9px;
   border: 1px solid transparent;
   border-radius: 14px;
@@ -127,8 +129,8 @@ button { font: inherit; }
   opacity: .65;
   transition: opacity .2s ease, border-color .2s ease;
 }
-.nav__lang button:hover { opacity: 1; }
-.nav__lang button.is-active { opacity: 1; border-color: rgba(255, 255, 255, .85); }
+.nav__lang a:hover { opacity: 1; }
+.nav__lang a.is-active { opacity: 1; border-color: rgba(255, 255, 255, .85); }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -950,8 +952,8 @@ button { font: inherit; }
     transition: opacity .2s ease, transform .2s ease, visibility .2s;
   }
   .nav.is-open .nav__links { opacity: 1; visibility: visible; transform: none; }
-  .nav__links a { display: block; width: 100%; padding: 10px 14px; border-radius: 10px; }
-  .nav__links a:hover { background: rgba(255, 255, 255, .12); opacity: 1; }
+  .nav__links > a { display: block; width: 100%; padding: 10px 14px; border-radius: 10px; }
+  .nav__links > a:hover { background: rgba(255, 255, 255, .12); opacity: 1; }
   .nav__lang { padding: 6px 10px 8px; }
 
   .hero { height: clamp(560px, 100vw, 760px); }

@@ -1,0 +1,7 @@
+# Сгенерировано scripts/build_site.py.
+# Поисковики читают robots.txt только в корне домена. На github.io/church-website/
+# этот файл не действует (и не мешает); заработает после подключения своего домена.
+User-agent: *
+Allow: /
+
+Sitemap: https://wapny.github.io/church-website/sitemap.xml

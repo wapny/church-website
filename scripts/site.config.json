@@ -1,0 +1,50 @@
+{
+  "_comment": "Настройки SEO. После правки запустите: python3 scripts/build_site.py. При переходе на собственный домен поменяйте только site_url (с / в конце). Все сведения о церкви взяты со страницы сайта.",
+
+  "site_url": "https://wapny.github.io/church-website/",
+  "default_lang": "ru",
+  "google_site_verification": "",
+
+  "og_image": { "path": "assets/og-image.jpg", "width": 1200, "height": 630, "type": "image/jpeg" },
+  "logo": "icon-v6-512x512.png",
+
+  "languages": {
+    "ru": {
+      "path": "",
+      "locale": "ru_RU",
+      "name": "Церковь «Маяк Надежды»",
+      "og_image_alt": "Маяк на закате — церковь «Маяк Надежды» в Риге"
+    },
+    "lv": {
+      "path": "lv/",
+      "locale": "lv_LV",
+      "name": "Draudze «Cerību Bāka»",
+      "og_image_alt": "Bāka saulrietā — draudze «Cerību Bāka» Rīgā"
+    },
+    "en": {
+      "path": "en/",
+      "locale": "en_GB",
+      "name": "Lighthouse of Hope Church",
+      "og_image_alt": "Lighthouse at sunset — Lighthouse of Hope Church in Riga"
+    }
+  },
+
+  "church": {
+    "legal_name": "CERĪBU BĀKA KRISTĪGĀ DRAUDZE",
+    "street_address": "Parādes iela 4",
+    "locality": "Rīga",
+    "country": "LV",
+    "latitude": 57.0419045,
+    "longitude": 24.0314766,
+    "telephone": "+37122077768",
+    "email": "ceribubaka@gmail.com",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=R%C4%ABga%2C+Par%C4%81des+iela+4",
+    "founding_year": "2015",
+    "member_of": { "name": "Latvijas vasarsvētku draudžu centrs", "alternate_name": "LVDC" },
+    "same_as": [
+      "https://www.facebook.com/mayaknadezdy",
+      "https://www.youtube.com/@mayaknadezdi",
+      "https://www.instagram.com/cmn_church"
+    ]
+  }
+}

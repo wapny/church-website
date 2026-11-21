@@ -48,9 +48,11 @@
   map.on('click focus', function () { map.scrollWheelZoom.enable(); });
   map.on('mouseout blur', function () { map.scrollWheelZoom.disable(); });
 
-  /* значок-метка в стиле сайта (тот же, что у адреса в контактах) */
+  /* значок-метка в стиле сайта (тот же, что у адреса в контактах).
+     Путь — от корня сайта (папка над js/), чтобы метка была видна и на /lv/, /en/ */
+  var root = document.currentScript ? new URL('../', document.currentScript.src).href : '';
   var pin = L.icon({
-    iconUrl: 'assets/icon-pin.svg',
+    iconUrl: root + 'assets/icon-pin.svg',
     iconSize: [34, 44],
     iconAnchor: [17, 44],
     popupAnchor: [0, -40]
