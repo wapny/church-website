@@ -1,16 +1,11 @@
 {
   "channelId": "UCyS2wgp9y7N8Ow-o_OWytlg",
-  "live": {
-    "videoId": "pcam8Enmi0U",
-    "title": "Воскресное служение  | Прямой эфир | Церковь \"Маяк Надежды\" Рига22.11.2026",
-    "startedAt": "2026-11-22T10:08:25Z",
-    "endedAt": null
-  },
+  "live": null,
   "latest": {
     "videoId": "s-eYrt4YNyE",
     "title": "Воскресное служение  | Прямой эфир | Церковь \"Маяк Надежды\" Рига22.11.2026",
     "startedAt": "2026-11-22T10:01:26Z",
     "endedAt": "2026-11-22T10:02:01Z"
   },
-  "changedAt": "2026-11-22T10:23:00Z"
+  "changedAt": "2026-11-22T13:37:27Z"
 }
