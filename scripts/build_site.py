@@ -222,15 +222,13 @@ def rebase(page, prefix='../'):
 
 # ---------- sitemap.xml, robots.txt, 404.html ----------
 def sitemap():
+    # Простейший sitemap: только <urlset> и <url><loc>. Связи между языками (hreflang)
+    # указаны в <head> каждой страницы, поэтому здесь их не дублируем.
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
-           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
-           '        xmlns:xhtml="http://www.w3.org/1999/xhtml">']
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for lang in LANGS:
         out.append('  <url>')
         out.append('    <loc>%s</loc>' % esc(page_url(lang)))
-        for code in LANGS:
-            out.append('    <xhtml:link rel="alternate" hreflang="%s" href="%s"/>' % (code, esc(page_url(code))))
-        out.append('    <xhtml:link rel="alternate" hreflang="x-default" href="%s"/>' % esc(page_url(DEFAULT)))
         out.append('  </url>')
     out.append('</urlset>')
     return '\n'.join(out) + '\n'
